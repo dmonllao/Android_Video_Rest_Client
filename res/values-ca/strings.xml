@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AndroidRestClient</string>
+    <string name="set_pwd">Selecciona una clau d\'accés</string>
+    <string name="set_pwd_info">Selecciona una clau d\'accés per poder enviar vídeos, l\'aplicació no tornarà a demanar aquesta clau</string>
+    <string name="ok">Continua</string>
+</resources>
