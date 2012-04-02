@@ -4,10 +4,15 @@ import android.app.Activity;
 import android.os.Bundle;
 
 public class AndroidRestClientActivity extends Activity {
-    /** Called when the activity is first created. */
-    @Override
+    
+	public static String APP_NAME = "AndroidRestClient";
+	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        // Setting the app user 
+        User user = new User(this);
+        
     }
 }
