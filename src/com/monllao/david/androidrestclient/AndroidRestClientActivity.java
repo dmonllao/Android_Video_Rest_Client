@@ -25,6 +25,8 @@ public class AndroidRestClientActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        // Load properties
+        loadProperties();
 
         // Registering the receiver
         receiver = new GetServerUserReceiver();
@@ -43,6 +45,25 @@ public class AndroidRestClientActivity extends Activity {
         startService(serverUser);
     }
 
+    public void onStart(Bundle savedInstanceState) {
+    	super.onStart();
+
+    }
+    
+    public void onResume(Bundle savedInstanceState) {
+    	super.onResume();
+    }
+    
+    
+    public void onPause() {
+    	super.onPause();
+    }
+    
+    
+    public void onStop() {
+    	super.onStop();
+    }
+    
     
     public void onDestroy() {
     	super.onDestroy();
@@ -61,5 +82,20 @@ public class AndroidRestClientActivity extends Activity {
     }
     
     
+    
+    protected void loadProperties() {
+    
+	    try {
+			InputStream rawResource = getResources().openRawResource(R.raw.server);
+			Properties serverProperties = new Properties();
+			serverProperties.load(rawResource);
+			serverHost = serverProperties.getProperty("server.host");
+			
+		} catch (Resources.NotFoundException e) {
+			Log.e(AndroidRestClientActivity.APP_NAME, "Did not find raw resource" + e.toString());
+		} catch (IOException e) {
+			Log.e(AndroidRestClientActivity.APP_NAME, "Failed to open property file" + e.toString());
+		}
+    }
     
 }
