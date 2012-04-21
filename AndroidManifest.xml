@@ -19,7 +19,5 @@
         <service android:name="com.monllao.david.androidrestclient.service.GetServerUserService">
         </service>
         
-        <receiver android:name="com.monllao.david.androidrestclient.receiver.GetServerUserReceiver">
-        </receiver>
     </application>
 </manifest>
