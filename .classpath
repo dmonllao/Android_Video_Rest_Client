@@ -6,5 +6,9 @@
 	<classpathentry kind="lib" path="lib/org.restlet.ext.json.jar"/>
 	<classpathentry kind="lib" path="lib/org.restlet.jar"/>
 	<classpathentry kind="lib" path="lib/org.json_2.0/org.json.jar"/>
+	<classpathentry kind="lib" path="lib/joda-time-2.1/joda-time-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/org.restlet.ext.jackson.jar"/>
+	<classpathentry kind="lib" path="lib/org.codehaus.jackson_1.4/org.codehaus.jackson.core.jar"/>
+	<classpathentry kind="lib" path="lib/org.codehaus.jackson_1.4/org.codehaus.jackson.mapper.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
