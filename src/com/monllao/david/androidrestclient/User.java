@@ -72,11 +72,19 @@ public class User implements Serializable {
 	 * @param context
 	 */
 	public void init(Context context) throws NotFoundException, IOException {
+		initEmail(context);
+	}
+	
+	
+	/**
+	 * Retrieves / created the user from/on the server
+	 * 
+	 * After setting up the email and the password
+	 * @param context
+	 */
+	protected void getUserFromServer(Context context) {
 		
 		SharedPreferences prefs = context.getSharedPreferences(AndroidRestClientActivity.APP_NAME, 0);
-
-		initEmail(context);
-		initPassword(context, prefs);
 		
 		// If there is no user let's create it
 		if (prefs.getInt("userid", 0) == 0 || prefs.getString("password", "") == "") {
@@ -96,12 +104,16 @@ public class User implements Serializable {
 	 * @param context
 	 */
 	private void initEmail(Context context) {
+		
+		// TODO Add a selector
 		AccountManager aManager = AccountManager.get(context);
 		Account[] accounts = aManager.getAccountsByType("com.google");
 		for (Account account : accounts) {
 			this.setEmail(account.name);
 			this.setUsername(account.name);
 		}
+
+		initPassword(context);
 	}
 	
     /**
@@ -112,7 +124,9 @@ public class User implements Serializable {
      * @param context The context where the dialog should be displayed
      * @return The user password
      */
-    private void initPassword(Context context, final SharedPreferences prefs) {
+    private void initPassword(final Context context) {
+    	
+    	final SharedPreferences prefs = context.getSharedPreferences(AndroidRestClientActivity.APP_NAME, 0);
     	
     	password = prefs.getString("password", "");
     	
@@ -134,10 +148,17 @@ public class User implements Serializable {
     				SharedPreferences.Editor editor = prefs.edit();
     				editor.putString("password", input.getText().toString());
     				editor.commit();
+    				
+    				// Now we can create the new user
+    				getUserFromServer(context);
     			}
     		});
     		    		
     		alert.show();
+    		
+    	// Get the user from the server
+    	} else {
+    		getUserFromServer(context);
     	}
 
     	// If no password is provided set to ""
