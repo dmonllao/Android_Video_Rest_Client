@@ -28,7 +28,7 @@ public class AndroidRestClientActivity extends Activity {
 	private AddServerUserReceiver addUserReceiver;
 	
 	/**
-	 * Initializes and gets the application user
+	 * Initialises and gets the application user
 	 */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

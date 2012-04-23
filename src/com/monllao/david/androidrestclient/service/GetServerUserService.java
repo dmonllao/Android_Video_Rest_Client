@@ -2,13 +2,8 @@ package com.monllao.david.androidrestclient.service;
 
 import java.io.IOException;
 
-import org.restlet.data.MediaType;
-import org.restlet.data.Preference;
-import org.restlet.engine.Engine;
-import org.restlet.engine.http.connector.HttpClientHelper;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
-import org.restlet.resource.ClientResource;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -17,6 +12,7 @@ import android.util.Log;
 
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 import com.monllao.david.androidrestclient.PropertiesManager;
+import com.monllao.david.androidrestclient.RestClient;
 import com.monllao.david.androidrestclient.User;
 
 /**
@@ -47,16 +43,8 @@ public class GetServerUserService extends IntentService {
 			e.printStackTrace();
 		}
 
-		// Creating the client resource
-		Engine.getInstance().getRegisteredClients().clear();
-		Engine.getInstance().getRegisteredClients().add(new HttpClientHelper(null));
-		
-		// Send request to the server 
-		ClientResource cr = new ClientResource(url);
-		Preference<MediaType> accept = new Preference<MediaType>(MediaType.APPLICATION_JSON);
-		cr.getClientInfo().getAcceptedMediaTypes().add(accept);
-		
-		Representation representation = cr.get();
+		RestClient client = new RestClient();
+		Representation representation = client.get(url);
 
 		Log.e(AndroidRestClientActivity.APP_NAME, "GetServerUserService plain response: " + representation.toString());
 			
