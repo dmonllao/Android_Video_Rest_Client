@@ -16,6 +16,9 @@
             </intent-filter>
         </activity>
 
+        <service android:name="com.monllao.david.androidrestclient.service.AddServerUserService">
+        </service>
+        
         <service android:name="com.monllao.david.androidrestclient.service.GetServerUserService">
         </service>
         
