@@ -63,6 +63,7 @@ public class GetServerUserService extends IntentService {
 		JacksonRepresentation<User> userRepresentation = new JacksonRepresentation<User> (representation, User.class);
 		user = userRepresentation.getObject();
 
+		Log.e(AndroidRestClientActivity.APP_NAME, "GetServerUserService user email: " + user.getEmail());
 
 		// Give feedback to the activity
 		Intent broadcastIntent = new Intent(AndroidRestClientActivity.ACTION_GETUSER);
