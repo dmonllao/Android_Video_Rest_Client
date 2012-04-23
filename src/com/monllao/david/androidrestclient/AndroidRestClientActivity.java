@@ -1,14 +1,9 @@
 package com.monllao.david.androidrestclient;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.util.Log;
