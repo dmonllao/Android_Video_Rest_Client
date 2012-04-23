@@ -1,15 +1,11 @@
 package com.monllao.david.androidrestclient.service;
 
 import java.io.IOException;
-import java.util.Map;
-
-import org.restlet.data.Form;
 import org.restlet.engine.Engine;
 import org.restlet.engine.http.connector.HttpClientHelper;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ClientResource;
-import org.restlet.resource.ResourceException;
 
 import android.app.IntentService;
 import android.content.Intent;

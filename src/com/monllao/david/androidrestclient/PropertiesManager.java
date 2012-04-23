@@ -5,9 +5,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
-import android.util.Log;
 
 /**
  * Application internal properties manager

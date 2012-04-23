@@ -1,8 +1,6 @@
 package com.monllao.david.androidrestclient;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import android.accounts.Account;
@@ -13,7 +11,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources.NotFoundException;
-import android.util.Log;
 import android.widget.EditText;
 
 import com.monllao.david.androidrestclient.service.AddServerUserService;
