@@ -1,8 +1,10 @@
 package com.monllao.david.androidrestclient;
 
+import org.restlet.Client;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
 import org.restlet.data.Preference;
+import org.restlet.data.Protocol;
 import org.restlet.engine.Engine;
 import org.restlet.engine.http.connector.HttpClientHelper;
 import org.restlet.representation.Representation;
@@ -13,7 +15,6 @@ public class RestClient {
 	public RestClient() {
 		
 	}
-	
 	
 	public Representation get(String url) {
 		
@@ -28,7 +29,7 @@ public class RestClient {
 	}
 	
 	/**
-	 * Initializes the client resource to accept only JSON
+	 * Initializes the client resource
 	 * 
 	 * @param url
 	 * @return
@@ -39,8 +40,13 @@ public class RestClient {
 		Engine.getInstance().getRegisteredClients().clear();
 		Engine.getInstance().getRegisteredClients().add(new HttpClientHelper(null));
 		
-		// Send request to the server 
+		// ClientResource 
+		Client client = new Client(Protocol.HTTP);
+		client.setConnectTimeout(3000);
 		ClientResource cr = new ClientResource(url);
+		cr.setNext(client);
+		
+		// Accepting only JSON
 		Preference<MediaType> accept = new Preference<MediaType>(MediaType.APPLICATION_JSON);
 		cr.getClientInfo().getAcceptedMediaTypes().add(accept);
 		
