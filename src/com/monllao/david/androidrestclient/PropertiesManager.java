@@ -9,6 +9,8 @@ import android.content.res.Resources.NotFoundException;
 
 /**
  * Application internal properties manager
+ * 
+ * Exceptions managed by callers
  */
 public class PropertiesManager {
 
@@ -16,10 +18,11 @@ public class PropertiesManager {
 	private static Context context = null;
 	
 	/**
-	 * Initializer 
+	 * Initialiser 
 	 * 
 	 * Assigns the application context to the PropertiesManager 
 	 * in order to know where should it look for resources
+	 * 
 	 * @param context
 	 */
 	public static void init(Context context) {
@@ -29,10 +32,10 @@ public class PropertiesManager {
 	/**
 	 * Gets a property from the properties file
 	 * 
-	 * @param key The property name
-	 * @return String
 	 * @throws NotFoundException
 	 * @throws IOException
+	 * @param key The property name
+	 * @return String
 	 */
 	public static String get(String key) throws NotFoundException, IOException {
 
@@ -43,7 +46,12 @@ public class PropertiesManager {
 		return serverProperties.getProperty(key, "");
 	}
 	
-
+	/**
+	 * Loads the file into this.serverProperties
+	 * 
+	 * @throws NotFoundException
+	 * @throws IOException
+	 */
     protected static void loadInternalProperties() throws NotFoundException, IOException {
     
 		InputStream rawResource = context.getResources().openRawResource(R.raw.server);

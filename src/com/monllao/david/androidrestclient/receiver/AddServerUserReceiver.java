@@ -9,18 +9,18 @@ import android.util.Log;
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 import com.monllao.david.androidrestclient.User;
 
+/**
+ * Receives the Service data and returns to the main activity
+ */
 public class AddServerUserReceiver extends BroadcastReceiver {
 
-	/**
-	 * Receives AddServerUser data and stores the generated id into shared preferences
-	 */
 	public void onReceive(Context context, Intent intent) {
 
 		User user = (User) intent.getSerializableExtra("user");
 		
 		Log.v(AndroidRestClientActivity.APP_NAME, "AddServerUserReceiver");
 		
-		// Stored the server user id in SharedPreferences
+		// Stores the generated id into the shared preferences
 		SharedPreferences prefs = context.getSharedPreferences(AndroidRestClientActivity.APP_NAME, 0);
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putInt("userid", user.getId());

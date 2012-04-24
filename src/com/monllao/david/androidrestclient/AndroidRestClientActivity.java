@@ -89,12 +89,12 @@ public class AndroidRestClientActivity extends Activity {
     
     
     /**
-     * Processes the GetServerUser service return
+     * Processes the server user services
      * 
      * Refreshes the application user data with the  
      * server data and loads the activity context
      * 
-     * @param serverUser
+     * @param user
      */
     public void processServerUser(User user) throws NotFoundException, IOException {
     	

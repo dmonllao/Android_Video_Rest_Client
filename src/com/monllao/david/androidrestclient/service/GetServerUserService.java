@@ -30,21 +30,22 @@ public class GetServerUserService extends RestService {
 		String url = "";
 		User user = null;
 
-		// requested URL
 		try {
-			
+
+			// Requested URL			
 			url = PropertiesManager.get("server.host") + "User/" + userdata.getId();
 
+			// Sending the petition
 			RestClient client = new RestClient();
 			Representation representation = client.get(url);
 
-			// Getting the user and loading it into user
+			// Getting the user
 			JacksonRepresentation<User> userRepresentation = new JacksonRepresentation<User> (representation, User.class);
 			user = userRepresentation.getObject();
 
 			Log.i(AndroidRestClientActivity.APP_NAME, "GetServerUserService user email: " + user.getEmail());
 
-			// Give feedback to the activity
+			// Give feedback to the main activity
 			Intent broadcastIntent = new Intent(AndroidRestClientActivity.ACTION_GETUSER);
 			broadcastIntent.putExtra("user", user);
 			sendBroadcast(broadcastIntent);

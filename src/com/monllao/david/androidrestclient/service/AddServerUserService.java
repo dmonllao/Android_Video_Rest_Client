@@ -3,13 +3,10 @@ import org.restlet.data.Form;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
 
-import android.app.IntentService;
 import android.content.Intent;
-import android.os.Handler;
 import android.util.Log;
 
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
-import com.monllao.david.androidrestclient.ExceptionHandler;
 import com.monllao.david.androidrestclient.PropertiesManager;
 import com.monllao.david.androidrestclient.RestClient;
 import com.monllao.david.androidrestclient.User;
@@ -34,27 +31,27 @@ public class AddServerUserService extends RestService {
 		String url = "";
 		User user = null;
 		
-		// requested URL
 		try {
-			
+		
+			// Requested URL
 			url = PropertiesManager.get("server.host") + "User/";
-
-			RestClient client = new RestClient();
 
 			// Set the user data
 			Form form = new Form();
 			form.add("email", userdata.getEmail());
 			form.add("password", userdata.getPassword());
 
+			// Sending the petition
+			RestClient client = new RestClient();
 			Representation representation = client.post(url, form);
 			
-			// Getting the user and loading it into user
+			// Getting the user
 			JacksonRepresentation<User> userRepresentation = new JacksonRepresentation<User> (representation, User.class);
 			user = userRepresentation.getObject();
 			
 			Log.i(AndroidRestClientActivity.APP_NAME, "AddServerUserService user email: " + user.getEmail());
 
-			// Give feedback to the activity
+			// Give feedback to the main activity
 			Intent broadcastIntent = new Intent(AndroidRestClientActivity.ACTION_ADDUSER);
 			broadcastIntent.putExtra("user", user);
 			sendBroadcast(broadcastIntent);
@@ -63,7 +60,6 @@ public class AddServerUserService extends RestService {
 			Log.e(AndroidRestClientActivity.APP_NAME, "AddServerUserService - " + e.getMessage());
 			this.showToast(AddServerUserService.this, e.getMessage());
 		}
-
 	}
 
 }

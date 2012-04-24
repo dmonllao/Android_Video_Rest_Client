@@ -5,15 +5,18 @@ import android.content.Context;
 import android.os.Handler;
 import android.widget.Toast;
 
+/**
+ * Middle IntentService to group remote petition
+ * 
+ * @abstract
+ */
 abstract public class RestService extends IntentService {
 	
 	Handler handler;
 	
 	public RestService(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
-
 
 	/**
 	 * Initialises the handler to display toasts
@@ -22,15 +25,10 @@ abstract public class RestService extends IntentService {
 		super.onCreate();
 		handler = new Handler();
 	}
-	
-//	protected void onHandleIntent(Intent intent) {
-//		// TODO Auto-generated method stub
-//
-//	}
-
 
 	/**
 	 * Show toast message
+	 * 
 	 * Toast does not run on the main application thread so
 	 * @param message
 	 */

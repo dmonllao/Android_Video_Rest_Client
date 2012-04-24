@@ -23,7 +23,6 @@ import com.monllao.david.androidrestclient.service.GetServerUserService;
  */
 public class User implements Serializable {
 
-
     private static final long serialVersionUID = 1L;
 
 	private int id;
@@ -62,12 +61,14 @@ public class User implements Serializable {
 		this.lastaccess = lastaccess;
 	}
 	
+	
 	public User(Context context) throws NotFoundException, IOException {
 		init(context);
 	}
 
+	
 	/**
-	 * Initialises the object
+	 * Initialises the object with the activity context
 	 * @param context
 	 */
 	public void init(Context context) throws NotFoundException, IOException {
@@ -91,7 +92,7 @@ public class User implements Serializable {
 			
 	    // Retrieve the server user
 		} else {
-			this.setId(prefs.getInt("userid", 0));
+			this.setId(prefs.getInt("userid", 0));  // To call the REST GET method
 			GetServerUser(context);
 		}
 
@@ -114,6 +115,7 @@ public class User implements Serializable {
 
 		initPassword(context);
 	}
+	
 	
     /**
      * Get the phone user pwd (the same for all the accounts)
@@ -165,11 +167,11 @@ public class User implements Serializable {
 
 
     /**
-     * Sets the user id
-     * 
-     * Sends a petition to create the user on the server  
+     * Sends a petition to create the user on the server
+     *   
      * @throws IOException 
-     * @throws NotFoundException 
+     * @throws NotFoundException
+     * @param context 
      */
 	public void AddServerUser(Context context) {
 
@@ -179,18 +181,20 @@ public class User implements Serializable {
         context.startService(serverUser);
 	}
 
+	
+	/**
+	 * Sends a petition to get the server user
+	 * @param context
+	 */
 	public void GetServerUser(Context context) {
 
         // getServerUser Intent
         Intent serverUser = new Intent(context, GetServerUserService.class);
         serverUser.putExtra("user", this);
         context.startService(serverUser);
-	}		    
-		    
-	/**
-	 * id getter
-	 * @return The user server id
-	 */
+	}
+
+	
 	public int getId() {
 		return id;
 	}
