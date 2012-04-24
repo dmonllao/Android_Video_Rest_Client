@@ -1,16 +1,13 @@
 package com.monllao.david.androidrestclient.receiver;
 
-import java.io.IOException;
-
-import com.monllao.david.androidrestclient.AndroidRestClientActivity;
-import com.monllao.david.androidrestclient.User;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources.NotFoundException;
 import android.util.Log;
+
+import com.monllao.david.androidrestclient.AndroidRestClientActivity;
+import com.monllao.david.androidrestclient.User;
 
 public class AddServerUserReceiver extends BroadcastReceiver {
 
@@ -21,7 +18,7 @@ public class AddServerUserReceiver extends BroadcastReceiver {
 
 		User user = (User) intent.getSerializableExtra("user");
 		
-		Log.e(AndroidRestClientActivity.APP_NAME, "AddServerUserReceiver");
+		Log.v(AndroidRestClientActivity.APP_NAME, "AddServerUserReceiver");
 		
 		// Stored the server user id in SharedPreferences
 		SharedPreferences prefs = context.getSharedPreferences(AndroidRestClientActivity.APP_NAME, 0);
@@ -30,15 +27,11 @@ public class AddServerUserReceiver extends BroadcastReceiver {
 		editor.commit();
 		
 		// Return to the activity to reload user
-		AndroidRestClientActivity activity = (AndroidRestClientActivity)context;
 		try {
+			AndroidRestClientActivity activity = (AndroidRestClientActivity)context;
 			activity.processServerUser(user);
-		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}  catch (Exception e) {
+			Log.e(AndroidRestClientActivity.APP_NAME, "AddServerUserReceiver - Failed to set the user");
 		}
 	}
 

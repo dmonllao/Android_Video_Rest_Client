@@ -20,7 +20,6 @@ import com.monllao.david.androidrestclient.service.GetServerUserService;
  * Representation of the mobile user
  * 
  * A POJO with context depedencies, also manages the user creation
- * 
  */
 public class User implements Serializable {
 
@@ -161,8 +160,7 @@ public class User implements Serializable {
     		getUserFromServer(context);
     	}
 
-    	// If no password is provided set to ""
-		this.setPassword(prefs.getString("password", ""));
+    	// If the user doesn't set up a password it can continue
     }
 
 

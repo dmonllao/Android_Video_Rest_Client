@@ -33,7 +33,7 @@ public class AndroidRestClientActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
+        
         try {
         	
         	PropertiesManager.init(getApplicationContext());
@@ -50,13 +50,11 @@ public class AndroidRestClientActivity extends Activity {
 	        // Setting up the app user 
 	        user = new User(this);
 	        
-	    // Global catcher
+	    // Global "set user" catcher
         } catch (Exception e) {
-        	
-        	Log.e(AndroidRestClientActivity.APP_NAME, "Error" + e.toString());
-			
-			Toast.makeText(this, e.getClass().getName() + " " + e.getMessage(), Toast.LENGTH_LONG)
-				.show();
+        	String text = "Failed to set the user";
+        	Log.e(AndroidRestClientActivity.APP_NAME, text);
+        	Toast.makeText(this, text, Toast.LENGTH_LONG).show();
         }
        
     }
@@ -99,8 +97,9 @@ public class AndroidRestClientActivity extends Activity {
      * @param serverUser
      */
     public void processServerUser(User user) throws NotFoundException, IOException {
+    	
     	this.user = user;
-    	Log.e(AndroidRestClientActivity.APP_NAME, "processServerUser: " + this.user.getEmail());
+    	Log.i(AndroidRestClientActivity.APP_NAME, "processServerUser: " + this.user.getEmail());
     }
     
 }
