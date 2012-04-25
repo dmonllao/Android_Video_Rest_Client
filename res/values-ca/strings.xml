@@ -3,5 +3,6 @@
     <string name="app_name">AndroidRestClient</string>
     <string name="set_pwd">Selecciona una clau d\'accés</string>
     <string name="set_pwd_info">Selecciona una clau d\'accés per poder enviar vídeos, l\'aplicació no tornarà a demanar aquesta clau</string>
-    <string name="ok">Continua</string>
+    <string name="set_pwd_button">Desar</string>
+    <string name="app_user_set_up">Usuari disponible al servidor</string>
 </resources>

@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources.NotFoundException;
+import android.text.method.PasswordTransformationMethod;
 import android.widget.EditText;
 
 import com.monllao.david.androidrestclient.service.AddServerUserService;
@@ -141,10 +142,11 @@ public class User implements Serializable {
     		
     		// Input text
     		final EditText input = new EditText(context);
+    		input.setTransformationMethod(new PasswordTransformationMethod());
     		alert.setView(input);
     		
     		// Listener
-    		alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+    		alert.setPositiveButton(R.string.set_pwd_button, new DialogInterface.OnClickListener() {
     			public void onClick(DialogInterface dialog, int which) {
     				SharedPreferences.Editor editor = prefs.edit();
     				editor.putString("password", input.getText().toString());

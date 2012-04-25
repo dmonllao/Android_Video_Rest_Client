@@ -3,5 +3,6 @@
     <string name="app_name">AndroidRestClient</string>
     <string name="set_pwd">Select a password</string>
     <string name="set_pwd_info">Select a password in order to send videos, this password will not be requested in future</string>
-    <string name="ok">Continue</string>
+    <string name="set_pwd_button">Save</string>
+    <string name="app_user_set_up">User available on server</string>
 </resources>
