@@ -100,6 +100,10 @@ public class AndroidRestClientActivity extends Activity {
     	
     	this.user = user;
     	Log.i(AndroidRestClientActivity.APP_NAME, "processServerUser: " + this.user.getEmail());
+    	
+    	// Iteration 1 Purposes
+    	String text = R.string.app_user_set_up + ": " + this.user.getEmail();
+    	Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
     
 }
