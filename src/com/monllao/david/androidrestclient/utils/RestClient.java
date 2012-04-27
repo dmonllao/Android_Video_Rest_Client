@@ -1,4 +1,4 @@
-package com.monllao.david.androidrestclient;
+package com.monllao.david.androidrestclient.utils;
 
 import org.restlet.Client;
 import org.restlet.data.Form;

@@ -1,4 +1,4 @@
-package com.monllao.david.androidrestclient;
+package com.monllao.david.androidrestclient.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,6 +6,8 @@ import java.util.Properties;
 
 import android.content.Context;
 import android.content.res.Resources.NotFoundException;
+
+import com.monllao.david.androidrestclient.R;
 
 /**
  * Application internal properties manager

@@ -7,9 +7,9 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
-import com.monllao.david.androidrestclient.PropertiesManager;
-import com.monllao.david.androidrestclient.RestClient;
 import com.monllao.david.androidrestclient.User;
+import com.monllao.david.androidrestclient.utils.PropertiesManager;
+import com.monllao.david.androidrestclient.utils.RestClient;
 
 
 /**
