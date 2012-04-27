@@ -15,17 +15,20 @@ public class GetServerUserReceiver extends BroadcastReceiver {
 
 	public void onReceive(Context context, Intent intent) {
 
-		User user = (User) intent.getSerializableExtra("user");
-		
 		Log.v(AndroidRestClientActivity.APP_NAME, "GetServerUserReceiver");
 		
-		// Return to the activity to reload user
-		try {
-			AndroidRestClientActivity activity = (AndroidRestClientActivity)context;
+		User user = (User) intent.getSerializableExtra("user");
+
+		AndroidRestClientActivity activity = (AndroidRestClientActivity)context;
+		
+		if (user == null) {
+			activity.showProblem("Failed to set the user");
+		
+		} else {
+			// Return to the activity to reload user
 			activity.processServerUser(user);
-		} catch (Exception e) {
-			Log.e(AndroidRestClientActivity.APP_NAME, "GetServerUserReceiver - Failed to set the user");
 		}
+		
 	}
 
 }
