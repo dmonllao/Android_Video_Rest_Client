@@ -1,16 +1,15 @@
 package com.monllao.david.androidrestclient;
 
-import java.io.IOException;
-
 import android.app.Activity;
 import android.content.IntentFilter;
-import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.monllao.david.androidrestclient.camera.VideoRecorder;
 import com.monllao.david.androidrestclient.receiver.AddServerUserReceiver;
 import com.monllao.david.androidrestclient.receiver.GetServerUserReceiver;
+import com.monllao.david.androidrestclient.utils.PropertiesManager;
 
 public class AndroidRestClientActivity extends Activity {
     
@@ -23,6 +22,8 @@ public class AndroidRestClientActivity extends Activity {
 	 * The application user
 	 */
 	private User user;
+	
+	private VideoRecorder videoRecorder;
 	
 	private GetServerUserReceiver getUserReceiver;
 	private AddServerUserReceiver addUserReceiver;
@@ -71,6 +72,9 @@ public class AndroidRestClientActivity extends Activity {
     
     public void onPause() {
     	super.onPause();
+
+    	// Release camera and/or stop recording
+    	videoRecorder.release();
     }
     
     
@@ -89,21 +93,36 @@ public class AndroidRestClientActivity extends Activity {
     
     
     /**
-     * Processes the server user services
+     * Sets the add user and initalises the camera
      * 
      * Refreshes the application user data with the  
      * server data and loads the activity context
      * 
      * @param user
      */
-    public void processServerUser(User user) throws NotFoundException, IOException {
+    public void processServerUser(User user) {
     	
     	this.user = user;
     	Log.i(AndroidRestClientActivity.APP_NAME, "processServerUser: " + this.user.getEmail());
     	
     	// Iteration 1 Purposes
-    	String text = R.string.app_user_set_up + ": " + this.user.getEmail();
+    	String text = getString(R.string.app_user_set_up) + ": " + this.user.getEmail();
     	Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+    	
+    	// Output the camera preview
+    	videoRecorder = new VideoRecorder(this, user);
+    	videoRecorder.fillLayout();
+    }
+    
+    
+    /**
+     * Outputs info about a problem, used to notice system failures
+     * @param message
+     */
+    public void showProblem(String message) {
+
+    	Log.e(AndroidRestClientActivity.APP_NAME, message);
+    	Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
     
 }
