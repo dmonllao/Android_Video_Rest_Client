@@ -125,8 +125,7 @@ public class VideoRecorder {
     	                camera.lock();         // take camera access back from MediaRecorder
     	                isRecording = false;
     	                
-    	                // Start de service to add the file and attach a callback
-
+    	                // Start the service to add the file
     	                Intent intent = new Intent(activity, AddServerVideoService.class);
     	                intent.putExtra("user", user);
     	                intent.putExtra("outputPath", outputFile.getPath());
