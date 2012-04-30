@@ -5,4 +5,6 @@
     <string name="set_pwd_info">Selecciona una clau d\'accés per poder enviar vídeos, l\'aplicació no tornarà a demanar aquesta clau</string>
     <string name="set_pwd_button">Desar</string>
     <string name="app_user_set_up">Usuari disponible al servidor</string>
+    <string name="set_video_data">Confirma</string>
+    <string name="set_title">Títol del vídeo</string>
 </resources>

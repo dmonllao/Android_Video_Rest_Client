@@ -5,4 +5,6 @@
     <string name="set_pwd_info">Selecciona un password para poder enviar videos, este password no se volverá a pedir</string>
     <string name="set_pwd_button">Guardar</string>
     <string name="app_user_set_up">Usuario disponible en el servidor</string>
+    <string name="set_video_data">Confirmar</string>
+    <string name="set_title">Video title</string>
 </resources>

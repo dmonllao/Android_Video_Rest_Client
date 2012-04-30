@@ -16,9 +16,12 @@ public final class R {
     public static final class id {
         public static final int button_capture=0x7f060001;
         public static final int camera_preview=0x7f060000;
+        public static final int set_video_data=0x7f060003;
+        public static final int title=0x7f060002;
     }
     public static final class layout {
         public static final int main=0x7f030000;
+        public static final int video_data=0x7f030001;
     }
     public static final class raw {
         public static final int server=0x7f040000;
@@ -29,5 +32,7 @@ public final class R {
         public static final int set_pwd=0x7f050001;
         public static final int set_pwd_button=0x7f050003;
         public static final int set_pwd_info=0x7f050002;
+        public static final int set_title=0x7f050006;
+        public static final int set_video_data=0x7f050005;
     }
 }
