@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 import com.monllao.david.androidrestclient.R;
 import com.monllao.david.androidrestclient.User;
+import com.monllao.david.androidrestclient.VideoDataActivity;
 import com.monllao.david.androidrestclient.service.AddServerVideoService;
 
 public class VideoRecorder {
@@ -130,6 +131,10 @@ public class VideoRecorder {
     	                intent.putExtra("user", user);
     	                intent.putExtra("outputPath", outputFile.getPath());
     	                activity.startService(intent);
+    	                
+    	                // Set up the video data while the video is being sent
+    	                Intent videoDataIntent = new Intent(activity, VideoDataActivity.class);
+    	                activity.startActivityForResult(videoDataIntent, AndroidRestClientActivity.ACTIVITY_VIDEODATA);
     	                
     	            // start recording
     	            } else {
