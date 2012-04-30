@@ -1,6 +1,7 @@
 package com.monllao.david.androidrestclient;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 
 import com.monllao.david.androidrestclient.camera.VideoRecorder;
 import com.monllao.david.androidrestclient.receiver.AddServerUserReceiver;
+import com.monllao.david.androidrestclient.receiver.AddServerVideoReceiver;
 import com.monllao.david.androidrestclient.receiver.GetServerUserReceiver;
 import com.monllao.david.androidrestclient.utils.PropertiesManager;
 
@@ -17,16 +19,23 @@ public class AndroidRestClientActivity extends Activity {
 	
 	public static String ACTION_GETUSER = "event-getuser";
 	public static String ACTION_ADDUSER = "event-adduser";
+	public static String ACTION_ADDVIDEO = "event-addvideo";
+	public static String ACTION_PUTVIDEO = "event-putvideo";
+	public static final int ACTIVITY_VIDEODATA = 1;
+	
 	
 	/**
 	 * The application user
 	 */
 	private User user;
+	private Video video;
 	
 	private VideoRecorder videoRecorder;
 	
 	private GetServerUserReceiver getUserReceiver;
 	private AddServerUserReceiver addUserReceiver;
+	private AddServerVideoReceiver addVideoReceiver;
+	private PutServerVideoReceiver putVideoReceiver;
 	
 	/**
 	 * Initialises and gets the application user
@@ -40,13 +49,21 @@ public class AndroidRestClientActivity extends Activity {
         	PropertiesManager.init(getApplicationContext());
         	
         	// Registering the receivers
-	        IntentFilter getfilter = new IntentFilter(AndroidRestClientActivity.ACTION_GETUSER);
+	        IntentFilter getuserfilter = new IntentFilter(AndroidRestClientActivity.ACTION_GETUSER);
 	        getUserReceiver = new GetServerUserReceiver();
-	        registerReceiver(getUserReceiver, getfilter);
+	        registerReceiver(getUserReceiver, getuserfilter);
 
-	        IntentFilter addfilter = new IntentFilter(AndroidRestClientActivity.ACTION_ADDUSER);
+	        IntentFilter adduserfilter = new IntentFilter(AndroidRestClientActivity.ACTION_ADDUSER);
 	        addUserReceiver = new AddServerUserReceiver();
-	        registerReceiver(addUserReceiver, addfilter);
+	        registerReceiver(addUserReceiver, adduserfilter);
+
+	        IntentFilter addvideofilter = new IntentFilter(AndroidRestClientActivity.ACTION_ADDVIDEO);
+	        addVideoReceiver = new AddServerVideoReceiver();
+	        registerReceiver(addVideoReceiver, addvideofilter);
+
+	        IntentFilter putvideofilter = new IntentFilter(AndroidRestClientActivity.ACTION_PUTVIDEO);
+	        putVideoReceiver = new PuutServerVideoReceiver();
+	        registerReceiver(putVideoReceiver, putvideofilter);
 	        
 	        // Setting up the app user 
 	        user = new User(this);
@@ -114,6 +131,14 @@ public class AndroidRestClientActivity extends Activity {
     	videoRecorder.fillLayout();
     }
     
+    // When the video is uploaded
+    public void processServerVideo(Video video) {
+    	this.video = video;
+    }
+    
+    public void processShare() {
+    	
+    }
     
     /**
      * Outputs info about a problem, used to notice system failures
@@ -123,6 +148,28 @@ public class AndroidRestClientActivity extends Activity {
 
     	Log.e(AndroidRestClientActivity.APP_NAME, message);
     	Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+    
+    /**
+     * When the video is set up we can start the activity to share the video
+     */
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        Bundle extras = intent.getExtras();
+        
+        switch(requestCode) {
+            case AndroidRestClientActivity.ACTIVITY_VIDEODATA:
+
+            	// Update the local object
+            	video.setName(extras.getString("title"));
+            	
+            	// Save the video text on the server
+            	Intent intent = new Intent(this, PutServerVideoService.class);
+            	intent.setAction(AndroidRestClientActivity.ACTION_PUTVIDEO);
+            	intent.putExtra("video", video);
+
+            	break;
+        }
     }
     
 }
