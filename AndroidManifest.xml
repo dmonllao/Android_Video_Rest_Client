@@ -23,6 +23,11 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".VideoDataActivity"
+                  android:label="@string/app_name"
+                  android:screenOrientation="landscape">
+        </activity>
+        
         <service android:name="com.monllao.david.androidrestclient.service.AddServerUserService">
         </service>
         
@@ -30,6 +35,9 @@
         </service>
         
         <service android:name="com.monllao.david.androidrestclient.service.AddServerVideoService">
+        </service>
+        
+        <service android:name="com.monllao.david.androidrestclient.service.PutServerVideoService">
         </service>
         
     </application>
