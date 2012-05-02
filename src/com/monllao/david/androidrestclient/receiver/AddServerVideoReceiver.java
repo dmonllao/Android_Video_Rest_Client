@@ -1,14 +1,13 @@
 package com.monllao.david.androidrestclient.receiver;
 
-import com.monllao.david.androidrestclient.AndroidRestClientActivity;
-import com.monllao.david.androidrestclient.User;
-import com.monllao.david.androidrestclient.Video;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
+
+import com.monllao.david.androidrestclient.AndroidRestClientActivity;
+import com.monllao.david.androidrestclient.Video;
+import com.monllao.david.androidrestclient.VideoDataActivity;
 
 public class AddServerVideoReceiver extends BroadcastReceiver {
 
@@ -18,7 +17,7 @@ public class AddServerVideoReceiver extends BroadcastReceiver {
 		
 		Video video = (Video) intent.getSerializableExtra("video");
 		
-		AndroidRestClientActivity activity = (AndroidRestClientActivity)context;
+		VideoDataActivity activity = (VideoDataActivity)context;
 		
 		if (video == null) {
 			activity.showProblem("Failed to get the video");

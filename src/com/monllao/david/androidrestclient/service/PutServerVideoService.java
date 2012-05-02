@@ -1,5 +1,6 @@
 package com.monllao.david.androidrestclient.service;
 
+import org.restlet.data.Form;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
 
@@ -31,9 +32,15 @@ public class PutServerVideoService extends RestService {
 			// Requested URL			
 			url = PropertiesManager.get("server.host") + "Video/" + videodata.getId();
 
+			// Set the user data
+			Form form = new Form();
+			form.add("id", Integer.toString(videodata.getId()));
+			form.add("userid", Integer.toString(videodata.getUserid()));
+			form.add("name", videodata.getName());
+
 			// Sending the petition
 			RestClient client = new RestClient();
-			Representation representation = client.get(url);
+			Representation representation = client.put(url, form);
 
 			// Getting the user
 			JacksonRepresentation<Video> videoRepresentation = new JacksonRepresentation<Video> (representation, Video.class);

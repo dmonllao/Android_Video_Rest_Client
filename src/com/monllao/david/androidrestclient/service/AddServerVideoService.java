@@ -54,6 +54,11 @@ public class AddServerVideoService extends RestService {
 			
 			Log.i(AndroidRestClientActivity.APP_NAME, "AddServerVideoService videoid: " + video.getId());
 			
+			// Give feedback to the main activity
+			Intent broadcastIntent = new Intent(AndroidRestClientActivity.ACTION_ADDVIDEO);
+			broadcastIntent.putExtra("video", video);
+			sendBroadcast(broadcastIntent);
+			
 		} catch (Exception e) {
 			Log.e(AndroidRestClientActivity.APP_NAME, "AddServerVideoService - " + e.getMessage());
 			this.showToast(AddServerVideoService.this, e.getMessage());

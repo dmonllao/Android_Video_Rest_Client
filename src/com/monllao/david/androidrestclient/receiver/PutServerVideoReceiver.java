@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 import com.monllao.david.androidrestclient.Video;
+import com.monllao.david.androidrestclient.VideoDataActivity;
 
 public class PutServerVideoReceiver extends BroadcastReceiver {
 
@@ -16,7 +17,7 @@ public class PutServerVideoReceiver extends BroadcastReceiver {
 		
 		Video video = (Video) intent.getSerializableExtra("video");
 
-		AndroidRestClientActivity activity = (AndroidRestClientActivity)context;
+		VideoDataActivity activity = (VideoDataActivity)context;
 		
 		if (video == null) {
 			activity.showProblem("Failed to update the video");
