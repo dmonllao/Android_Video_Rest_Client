@@ -27,6 +27,12 @@ public class RestClient {
 		ClientResource cr = this.getClientResource(url);
 		return cr.post(form);
 	}
+
+	public Representation put(String url, Form form) {
+		
+		ClientResource cr = this.getClientResource(url);
+		return cr.put(form);
+	}
 	
 	/**
 	 * Initializes the client resource
