@@ -10,33 +10,34 @@ import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 import com.monllao.david.androidrestclient.R;
 import com.monllao.david.androidrestclient.User;
 import com.monllao.david.androidrestclient.VideoDataActivity;
-import com.monllao.david.androidrestclient.service.AddServerVideoService;
 
 public class VideoRecorder {
 	
-	private User user;
 	private Activity activity;
+	private User user;
+	
+	private boolean submitted = false;
 
 	private Camera camera = null;
 	private CameraVideoPreview preview = null;
 	private MediaRecorder mediaRecorder = null;
     private File outputFile;
     
-	Button captureButton;
+	ImageButton captureButton;
+	ImageButton shareButton;
 	
 	private boolean isRecording = false;
 	
-	public VideoRecorder(Activity activity, User user) {
+	public VideoRecorder(Activity activity) {
 
 		this.activity = activity;
-		this.user = user;
 		
 		// Getting the camera
     	try {
@@ -54,6 +55,7 @@ public class VideoRecorder {
         previewLayout.addView(preview);
         
         this.addCaptureButton();
+        this.addShareButton();
 	}
 
 	
@@ -107,11 +109,55 @@ public class VideoRecorder {
         return true;
     }
 
+
+    /**
+     * Initialises the button the share. 
+     * 
+     * Hidden until a recording is available 
+     */
+    protected void addShareButton() {
+    	
+    	shareButton = (ImageButton) activity.findViewById(R.id.button_share);
+
+        // Make it invisible until we have a recording
+        shareButton.setVisibility(View.INVISIBLE);
+        
+    	shareButton.setOnClickListener(
+    		new View.OnClickListener() {
+			
+				public void onClick(View v) {
+				    submitted = true;
+
+				    // Redirect to the new activity VideoData if we have the application user
+				    if (user != null) {
+				    	initVideoData();
+				    }
+				}
+			}
+    	);
+    }
+
+    /**
+     * Sets the video user and redirects to VideoData if the shared button is pressed
+     * @param user
+     */
+    public void setUser(User user) {
+	    
+    	this.user = user;
+
+	    // Redirect to the new activity VideoData if "share" has been clicked
+	    if (submitted == true) {
+	    	initVideoData();
+	    }
+    }
     
-    public void addCaptureButton() {
+    /**
+     * Initialises the button to capture
+     */
+    protected void addCaptureButton() {
         
         // Capture button
-        captureButton = (Button) activity.findViewById(R.id.button_capture);
+        captureButton = (ImageButton) activity.findViewById(R.id.button_rec);
     	captureButton.setOnClickListener(
     		new View.OnClickListener() {
     			
@@ -126,15 +172,8 @@ public class VideoRecorder {
     	                camera.lock();         // take camera access back from MediaRecorder
     	                isRecording = false;
     	                
-    	                // Start the service to add the file
-    	                Intent intent = new Intent(activity, AddServerVideoService.class);
-    	                intent.putExtra("user", user);
-    	                intent.putExtra("outputPath", outputFile.getPath());
-    	                activity.startService(intent);
-    	                
-    	                // Set up the video data while the video is being sent
-    	                Intent videoDataIntent = new Intent(activity, VideoDataActivity.class);
-    	                activity.startActivityForResult(videoDataIntent, AndroidRestClientActivity.ACTIVITY_VIDEODATA);
+    	                // Make it visible
+    	                shareButton.setVisibility(View.VISIBLE);
     	                
     	            // start recording
     	            } else {
@@ -159,6 +198,16 @@ public class VideoRecorder {
     	
     }
     
+    
+    protected void initVideoData() {
+
+        // Set up the video data while the video is being sent
+        Intent intent = new Intent(activity, VideoDataActivity.class);
+        intent.putExtra("outputPath", outputFile.getPath());
+        intent.putExtra("user", user);
+        
+        activity.startActivityForResult(intent, AndroidRestClientActivity.ACTIVITY_VIDEODATA);
+    }
     
     /**
      * All stopped

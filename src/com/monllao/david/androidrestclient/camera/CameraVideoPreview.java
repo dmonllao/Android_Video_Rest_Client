@@ -50,7 +50,6 @@ public class CameraVideoPreview extends SurfaceView implements SurfaceHolder.Cal
 		}
 	}
 
-	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		
 		try {
@@ -62,7 +61,6 @@ public class CameraVideoPreview extends SurfaceView implements SurfaceHolder.Cal
 		
 	}
 
-	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		// Take care of it in the Activity
 	}
