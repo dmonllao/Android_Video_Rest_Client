@@ -15,6 +15,7 @@
     
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".AndroidRestClientActivity"
+                  android:screenOrientation="landscape"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +23,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".VideoDataActivity"/>
+        <activity android:name=".VideoDataActivity"
+            android:screenOrientation="landscape"/>
         
         <service android:name="com.monllao.david.androidrestclient.service.AddServerUserService"/>
         <service android:name="com.monllao.david.androidrestclient.service.GetServerUserService"/>
