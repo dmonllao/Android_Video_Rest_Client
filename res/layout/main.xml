@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     >
   <FrameLayout
-    android:id="@+id/camera_preview"
+    android:id="@+id/screen"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_weight="1"
