@@ -1,9 +1,11 @@
 package com.monllao.david.androidrestclient;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,6 +25,11 @@ public class AndroidRestClientActivity extends Activity {
 	public static int ACTIVITY_VIDEODATA = 1;
 	
 	/**
+	 * Screen blocker
+	 */
+	PowerManager.WakeLock wl;
+	
+	/**
 	 * The application user
 	 */
 	private User user;
@@ -38,7 +45,10 @@ public class AndroidRestClientActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-Log.i(AndroidRestClientActivity.APP_NAME, "AndroidRestClientActivity.oncreate");
+        
+        Log.i(AndroidRestClientActivity.APP_NAME, "-------------------------------------");
+        Log.i(AndroidRestClientActivity.APP_NAME, "AndroidRestClientActivity.oncreate");
+        
         try {
         	
         	PropertiesManager.init(getApplicationContext());
@@ -62,43 +72,49 @@ Log.i(AndroidRestClientActivity.APP_NAME, "AndroidRestClientActivity.oncreate");
         	Toast.makeText(this, text, Toast.LENGTH_LONG).show();
         }
 
-    	// Output the camera preview
-    	videoRecorder = new VideoRecorder(this);
-    	videoRecorder.fillLayout();       
     }
 
-    public void onStart(Bundle savedInstanceState) {
-    	super.onStart();
-Log.i(AndroidRestClientActivity.APP_NAME, "AndroidRestClientActivity.onstart");
-    }
     
-    public void onResume(Bundle savedInstanceState) {
+    public void onResume() {
     	super.onResume();
-Log.i(AndroidRestClientActivity.APP_NAME, "AndroidRestClientActivity.onresume");
+    	
+    	Log.i(AndroidRestClientActivity.APP_NAME, "AndroidRestClientActivity.onresume");
+
+		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
+		wl.acquire();
+
+		// Fill the layouts with the video recorder, we don't wait for 
+		// user server response, VideoRecorder will manage it
+		videoRecorder = new VideoRecorder(this);
+		
+		// If we already have the user assign it to the video recorder
+		if (user != null) {
+			videoRecorder.setUser(user);
+		}
     }
     
     
     public void onPause() {
     	super.onPause();
-    	
-Log.i(AndroidRestClientActivity.APP_NAME, "AndroidRestClientActivity.onpause");
+
+    	Log.i(AndroidRestClientActivity.APP_NAME, "AndroidRestClientActivity.onpause");
+
+    	// Free the screen blocker
+    	wl.release();
     	
     	// Release camera and/or stop recording
         if (videoRecorder != null) {
         	videoRecorder.release();
+        	videoRecorder = null;
         }
-    }
-    
-    
-    public void onStop() {
-    	super.onStop();
-Log.i(AndroidRestClientActivity.APP_NAME, "AndroidRestClientActivity.onstop");
     }
     
     
     public void onDestroy() {
     	super.onDestroy();
-Log.i(AndroidRestClientActivity.APP_NAME, "AndroidRestClientActivity.ondestroy");
+    	
+    	Log.i(AndroidRestClientActivity.APP_NAME, "AndroidRestClientActivity.ondestroy");
     	
     	// Unregistering the broadcast receivers
     	unregisterReceiver(getUserReceiver);
@@ -119,7 +135,7 @@ Log.i(AndroidRestClientActivity.APP_NAME, "AndroidRestClientActivity.ondestroy")
     }
     
     /**
-     * Sets the add user and initialises the camera
+     * Sets the user who are recording
      * 
      * Refreshes the application user data with the  
      * server data and loads the activity context
@@ -131,8 +147,12 @@ Log.i(AndroidRestClientActivity.APP_NAME, "AndroidRestClientActivity.ondestroy")
     	this.user = user;
     	Log.i(AndroidRestClientActivity.APP_NAME, "processServerUser: " + this.user.getEmail());
     	
-    	// Note that we received the server user
-    	videoRecorder.setUser(this.user);
+    	// If the application is paused don't set the user
+    	if (videoRecorder != null) {
+    		
+    		// Note that we received the server user
+    		videoRecorder.setUser(this.user);
+    	}
     }
     
     /**
