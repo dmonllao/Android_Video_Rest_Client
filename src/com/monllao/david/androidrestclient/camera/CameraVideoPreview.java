@@ -55,8 +55,9 @@ public class CameraVideoPreview extends SurfaceView implements SurfaceHolder.Cal
 	 * It waits until the surface has changed and the preview size is assigned
 	 * @param outputFile
 	 */
-	public void readyToRec(File outputFile) {
+	public void readyToRec(MediaRecorder mediaRecorder, File outputFile) {
 		
+		this.mediaRecorder = mediaRecorder;
 		this.outputFile = outputFile;
 		
 		userReady = true;
@@ -73,8 +74,6 @@ public class CameraVideoPreview extends SurfaceView implements SurfaceHolder.Cal
 	 */
 	protected void beginRec() {
     	
-		mediaRecorder = new MediaRecorder();
-
 		// Unlocks camera to be used
         mCamera.unlock();
         mediaRecorder.setCamera(mCamera);

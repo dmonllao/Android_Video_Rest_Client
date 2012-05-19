@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
+import android.media.MediaRecorder;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -37,6 +38,7 @@ public class VideoRecorder {
 	private boolean shareButtonClicked = false;
 	private boolean isRecording = false;
 
+	private MediaRecorder mediaRecorder;
 	private Camera camera = null;
     private File outputFile;
     
@@ -171,48 +173,12 @@ public class VideoRecorder {
     			public void onClick(View v) {
     				
     				// stop recording, release camera and show the video
-    				if (isRecording) {    	                
-    	                preview.mediaRecorder.stop();
-    	                release();
-    	                camera = null;
-	                    
-    	                isRecording = false;
-    	                
-	                    // Stop image changes to rec image
-    	                captureButton.setImageResource(R.drawable.record);
-	                    
-    	                // Share button available 
-    	                shareButton.setVisibility(View.VISIBLE);
-    	                
-    	                // Hide the counter and reset it
-    	                counterView.setVisibility(View.INVISIBLE);
-    	                mHandler.removeCallbacks(counterReducerTask);
-    	                
-	                    // Display the recorded video
-	                    setViewerView();
+    				if (isRecording) {
+    					stopRecording();
     	                
     	            // start recording
     	            } else {
-    	            	
-    	            	// Not the first recording
-    	            	if (outputFile != null) {
-    	            		setPreviewView();
-    	            	}
-    	            	
-    	            	// New path / filename for the video 
-    	            	outputFile = CameraStorageManager.getOutputMediaFile();
-	            		preview.readyToRec(outputFile);
-	            		
-	            		isRecording = true;
-	            		
-	            		// Rec image changes to stop image
-	            		captureButton.setImageResource(R.drawable.stop);
-	            		
-	            		// Share button no visible
-	            		shareButton.setVisibility(View.INVISIBLE);
-	            		
-	            		// Restart the counter to VIDEO_SECS
-	            		restartCounter();
+    	            	startRecording();
     	            }
 
     			}
@@ -221,6 +187,81 @@ public class VideoRecorder {
     	
     }
 
+    
+    /**
+     * Instantiates the media recorder and assigns the on max duration reached
+     */
+    protected void createMediaRecorder() {
+
+    	mediaRecorder = new MediaRecorder();
+    	mediaRecorder.setOnInfoListener(new MediaRecorder.OnInfoListener() {
+			
+			public void onInfo(MediaRecorder mr, int what, int extra) {
+				
+				if (what == MediaRecorder.MEDIA_RECORDER_INFO_MAX_DURATION_REACHED) {
+					stopRecording();
+				}
+			}
+		});
+    	
+    }
+    
+    
+    /**
+     * Releases the mediarecorder, the camera and sets the recording view
+     */
+    protected void stopRecording() {
+
+        preview.mediaRecorder.stop();
+        release();
+        camera = null;
+        
+        isRecording = false;
+        
+        // Stop image changes to rec image
+        captureButton.setImageResource(R.drawable.record);
+        
+        // Share button available 
+        shareButton.setVisibility(View.VISIBLE);
+        
+        // Hide the counter and reset it
+        counterView.setVisibility(View.INVISIBLE);
+        mHandler.removeCallbacks(counterReducerTask);
+        
+        // Display the recorded video
+        setViewerView();
+    }
+    
+    
+    /**
+     * Starts the recording and fills the record layout if it's empty
+     */
+    protected void startRecording() {
+
+    	// If it's not the first recording restore the preview video
+    	if (outputFile != null) {
+    		setPreviewView();
+    	}
+    	
+    	// Create the mediaRecorder here to get the info event
+    	createMediaRecorder();
+
+    	// New path / filename for the video
+    	outputFile = CameraStorageManager.getOutputMediaFile();
+		preview.readyToRec(mediaRecorder, outputFile);
+		
+		isRecording = true;
+		
+		// Rec image changes to stop image
+		captureButton.setImageResource(R.drawable.stop);
+		
+		// Share button no visible
+		shareButton.setVisibility(View.INVISIBLE);
+		
+		// Restart the counter to VIDEO_SECS
+		restartCounter();
+    }
+    
     
     /**
      * New activity to set up the video data
@@ -279,7 +320,7 @@ public class VideoRecorder {
 
 
     /**
-     * @todo Big TODO
+     * The desirable size is mmaximum screen height with minimal width
      */
     protected void calculateOptimalScreenSize() {
 
@@ -296,14 +337,13 @@ public class VideoRecorder {
 
 			Log.e(AndroidRestClientActivity.APP_NAME, "Supports: " + size.width+ ":" + size.height);
 			
-			// Look for the max resolution
+			// Same height minimum width available, probably 4:3
 			if (size.height == screenHeight && size.width < screenWidth) {
 
 				Log.e(AndroidRestClientActivity.APP_NAME, "Selected size: " + size.width+ ":" + size.height);
 				
 				height = size.height;
-				width = size.width;				
-//				return;
+				width = size.width;
 			}
 		}
 		
