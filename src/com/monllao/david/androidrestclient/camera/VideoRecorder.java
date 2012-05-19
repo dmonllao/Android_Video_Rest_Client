@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.MediaController;
-import android.widget.VideoView;
 
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 import com.monllao.david.androidrestclient.R;
@@ -41,7 +40,7 @@ public class VideoRecorder {
     
     private FrameLayout frameLayout;
 	private CameraVideoPreview preview = null;
-    private VideoView videoView = null;
+    private RecordingViewer recordingViewer = null;
     
 	ImageButton captureButton;
 	ImageButton shareButton;
@@ -141,6 +140,8 @@ public class VideoRecorder {
 	                    
     	                // share button available 
     	                shareButton.setVisibility(View.VISIBLE);
+    	                
+    	                captureButton.setImageResource(R.drawable.record);
 	                    
     	            // start recording
     	            } else {
@@ -155,6 +156,8 @@ public class VideoRecorder {
 	            		preview.readyToRec(outputFile);
 	            		
 	            		isRecording = true;
+	            		
+	            		captureButton.setImageResource(R.drawable.stop);
     	            }
 
     			}
@@ -204,19 +207,19 @@ public class VideoRecorder {
      */
     protected void setViewerView() {
 
-    	videoView = new VideoView(activity);
+    	recordingViewer = new RecordingViewer(activity, this.width, this.height);
     	
     	frameLayout.removeAllViews();
-    	frameLayout.addView(videoView);
+    	frameLayout.addView(recordingViewer);
 
     	// Video controls
     	MediaController mediaController = new MediaController(activity);
     	
     	// Assign the video controls to the view and start the reproduction
-    	videoView.setVideoPath(outputFile.getPath());
-    	videoView.setMediaController(mediaController);
-    	videoView.requestFocus();
-    	videoView.start();
+    	recordingViewer.setVideoPath(outputFile.getPath());
+    	recordingViewer.setMediaController(mediaController);
+    	recordingViewer.requestFocus();
+    	recordingViewer.start();
     }
 
 
@@ -224,8 +227,7 @@ public class VideoRecorder {
      * @todo Big TODO
      */
     protected void calculateOptimalScreenSize() {
-//width = 1280;
-//height = 720;
+
 		DisplayMetrics metrics = new DisplayMetrics();
 		activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		
@@ -238,15 +240,16 @@ public class VideoRecorder {
 			Size size = it.next();
 
 			Log.e(AndroidRestClientActivity.APP_NAME, "Supports: " + size.width+ ":" + size.height);
+			
 			// Look for the max resolution
-//			if (size.height == screenHeight && size.width < screenWidth) {
+			if (size.height == screenHeight && size.width < screenWidth) {
 
 				Log.e(AndroidRestClientActivity.APP_NAME, "Selected size: " + size.width+ ":" + size.height);
 				
 				height = size.height;
 				width = size.width;				
-				return;
-//			}
+//				return;
+			}
 		}
 		
     }
