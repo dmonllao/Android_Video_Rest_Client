@@ -13,7 +13,7 @@
 
   <ImageButton
     android:id="@+id/button_rec"
-    android:src="@drawable/rec"
+    android:src="@drawable/record"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     />
