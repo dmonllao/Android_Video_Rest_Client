@@ -8,7 +8,7 @@
     >
   <FrameLayout
     android:id="@+id/screen"
-    android:layout_width="match_parent"
+    android:layout_width="0dp"
     android:layout_height="match_parent"
     android:layout_weight="1"
     />
@@ -18,11 +18,18 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
       
+    <TextView
+      android:id="@+id/counter"
+      android:text=""
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+    />
+    
     <ImageButton
       android:id="@+id/button_rec"
       android:src="@drawable/record"
       android:padding="0dp"
-      android:layout_marginRight="5dp"
+      android:layout_marginRight="10dp"
       android:layout_marginTop="20dp"
       android:layout_marginBottom="20dp"
       android:layout_width="wrap_content"
@@ -33,7 +40,7 @@
       android:id="@+id/button_share"
       android:src="@drawable/share"
       android:padding="0dp"
-      android:layout_marginRight="5dp"
+      android:layout_marginRight="10dp"
       android:layout_marginTop="20dp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
