@@ -35,8 +35,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".VideoDataActivity"
-            android:screenOrientation="landscape"/>
+        <activity android:name=".VideoDataActivity"/>
         
         <service android:name="com.monllao.david.androidrestclient.service.AddServerUserService"/>
         <service android:name="com.monllao.david.androidrestclient.service.GetServerUserService"/>
