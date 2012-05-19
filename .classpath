@@ -11,6 +11,5 @@
 	<classpathentry exported="true" kind="lib" path="lib/org.restlet.ext.jackson.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.restlet.ext.json.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.restlet.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/android-support-v4.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
