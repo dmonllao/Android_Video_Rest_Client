@@ -8,12 +8,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.MediaController;
+import android.widget.TextView;
 
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 import com.monllao.david.androidrestclient.R;
@@ -44,6 +46,13 @@ public class VideoRecorder {
     
 	ImageButton captureButton;
 	ImageButton shareButton;
+	final TextView counterView;
+	
+	/**
+	 * To reduce the counter
+	 */
+	private Handler mHandler;
+	private int counterValue;
 	
 	/**
 	 * Video height
@@ -64,6 +73,12 @@ public class VideoRecorder {
 
 		this.activity = activity;
     	frameLayout = (FrameLayout) activity.findViewById(R.id.screen);
+    	
+    	// Sets the counterView object with the view element
+    	counterView = (TextView) activity.findViewById(R.id.counter);
+
+    	// To manage the available time
+    	mHandler = new Handler();
     	
     	// Display the camera preview
     	setPreviewView();
@@ -100,7 +115,35 @@ public class VideoRecorder {
 			}
     	);
     }
-
+    
+    
+    /**
+     * Restarts the counter to 0
+     */
+    protected void restartCounter() {
+    	
+    	counterView.setVisibility(View.VISIBLE);
+    	counterValue = 0;
+    	counterView.setText(Integer.toString(counterValue));
+    	counterValue++;
+    	
+    	// second to second
+    	mHandler.postDelayed(counterReducerTask, 1000);
+    }
+    
+    
+    /**
+     * Task to be executed every second when recording to reduce to counter
+     */
+    private Runnable counterReducerTask = new Runnable() {
+    	
+        public void run() {
+        	counterView.setText(Integer.toString(counterValue));
+        	counterValue++;
+        	mHandler.postDelayed(this, 1000);
+        }
+    };
+    
     /**
      * Sets the video user and redirects to VideoData if the shared button is pressed
      * @param user
@@ -135,14 +178,19 @@ public class VideoRecorder {
 	                    
     	                isRecording = false;
     	                
-	                    // Display the recorded video
-	                    setViewerView();
-	                    
-    	                // share button available 
-    	                shareButton.setVisibility(View.VISIBLE);
-    	                
+	                    // Stop image changes to rec image
     	                captureButton.setImageResource(R.drawable.record);
 	                    
+    	                // Share button available 
+    	                shareButton.setVisibility(View.VISIBLE);
+    	                
+    	                // Hide the counter and reset it
+    	                counterView.setVisibility(View.INVISIBLE);
+    	                mHandler.removeCallbacks(counterReducerTask);
+    	                
+	                    // Display the recorded video
+	                    setViewerView();
+    	                
     	            // start recording
     	            } else {
     	            	
@@ -157,7 +205,14 @@ public class VideoRecorder {
 	            		
 	            		isRecording = true;
 	            		
+	            		// Rec image changes to stop image
 	            		captureButton.setImageResource(R.drawable.stop);
+	            		
+	            		// Share button no visible
+	            		shareButton.setVisibility(View.INVISIBLE);
+	            		
+	            		// Restart the counter to VIDEO_SECS
+	            		restartCounter();
     	            }
 
     			}
