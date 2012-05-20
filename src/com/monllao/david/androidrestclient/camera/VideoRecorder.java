@@ -140,9 +140,12 @@ public class VideoRecorder {
     private Runnable counterReducerTask = new Runnable() {
     	
         public void run() {
-        	counterView.setText(Integer.toString(counterValue));
-        	counterValue++;
-        	mHandler.postDelayed(this, 1000);
+        	
+        	if (counterValue <= AndroidRestClientActivity.VIDEO_SECS) {
+	        	counterView.setText(Integer.toString(counterValue));
+	        	counterValue++;
+	        	mHandler.postDelayed(this, 1000);
+        	}
         }
     };
     
