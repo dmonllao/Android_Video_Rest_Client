@@ -125,8 +125,9 @@ public class VideoDataActivity extends Activity {
     }
     
     
-    public void processShare() {
-    	Log.e(AndroidRestClientActivity.APP_NAME, "processShare - END");
+    public void processShare(Video video) {
+    	Log.e(AndroidRestClientActivity.APP_NAME, "processShare - with video id = " + video.getId());
+    	Toast.makeText(this, "Video uploaded!", Toast.LENGTH_LONG).show();
     }
     
     /**
