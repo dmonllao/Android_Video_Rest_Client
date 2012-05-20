@@ -12,11 +12,22 @@ public final class R {
     }
     public static final class drawable {
         public static final int bg=0x7f020000;
-        public static final int icon=0x7f020001;
-        public static final int rec=0x7f020002;
-        public static final int record=0x7f020003;
-        public static final int share=0x7f020004;
-        public static final int stop=0x7f020005;
+        public static final int counter_0=0x7f020001;
+        public static final int counter_1=0x7f020002;
+        public static final int counter_10=0x7f020003;
+        public static final int counter_2=0x7f020004;
+        public static final int counter_3=0x7f020005;
+        public static final int counter_4=0x7f020006;
+        public static final int counter_5=0x7f020007;
+        public static final int counter_6=0x7f020008;
+        public static final int counter_7=0x7f020009;
+        public static final int counter_8=0x7f02000a;
+        public static final int counter_9=0x7f02000b;
+        public static final int icon=0x7f02000c;
+        public static final int rec=0x7f02000d;
+        public static final int record=0x7f02000e;
+        public static final int share=0x7f02000f;
+        public static final int stop=0x7f020010;
     }
     public static final class id {
         public static final int button_rec=0x7f060002;

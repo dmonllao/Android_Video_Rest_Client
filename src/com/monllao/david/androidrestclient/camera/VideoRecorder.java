@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
 
@@ -48,7 +49,7 @@ public class VideoRecorder {
     
 	ImageButton captureButton;
 	ImageButton shareButton;
-	final TextView counterView;
+	final ImageView counterView;
 	
 	/**
 	 * To reduce the counter
@@ -77,7 +78,7 @@ public class VideoRecorder {
     	frameLayout = (FrameLayout) activity.findViewById(R.id.screen);
     	
     	// Sets the counterView object with the view element
-    	counterView = (TextView) activity.findViewById(R.id.counter);
+    	counterView = (ImageView) activity.findViewById(R.id.counter);
 
     	// To manage the available time
     	mHandler = new Handler();
@@ -125,9 +126,9 @@ public class VideoRecorder {
     protected void restartCounter() {
     	
     	counterView.setVisibility(View.VISIBLE);
-    	counterValue = 0;
-    	counterView.setText(Integer.toString(counterValue));
-    	counterValue++;
+    	counterValue = AndroidRestClientActivity.VIDEO_SECS;
+    	counterView.setImageResource(activity.getResources().getIdentifier("counter_" + counterValue, "drawable","com.monllao.david.androidrestclient"));
+    	counterValue--;
     	
     	// second to second
     	mHandler.postDelayed(counterReducerTask, 1000);
@@ -141,9 +142,10 @@ public class VideoRecorder {
     	
         public void run() {
         	
-        	if (counterValue <= AndroidRestClientActivity.VIDEO_SECS) {
-	        	counterView.setText(Integer.toString(counterValue));
-	        	counterValue++;
+        	if (counterValue >= 0) {
+        		
+	        	counterView.setImageResource(activity.getResources().getIdentifier("counter_" + counterValue, "drawable","com.monllao.david.androidrestclient"));
+	        	counterValue--;
 	        	mHandler.postDelayed(this, 1000);
         	}
         }

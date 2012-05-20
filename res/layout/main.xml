@@ -18,9 +18,11 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
       
-    <TextView
+    <ImageView
       android:id="@+id/counter"
-      android:text=""
+      android:src="@drawable/counter_10"
+      android:visibility="invisible"
+      android:layout_marginRight="10dp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
     />
@@ -30,8 +32,6 @@
       android:src="@drawable/record"
       android:padding="0dp"
       android:layout_marginRight="10dp"
-      android:layout_marginTop="20dp"
-      android:layout_marginBottom="20dp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
     />
