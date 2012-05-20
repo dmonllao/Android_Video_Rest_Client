@@ -12,17 +12,21 @@ public class Video implements Serializable {
 	private int id;
 	private int userid;
 	private String name;
+	private String url;
+	private String html;
 	private int timecreated;
 	
 	public Video() {
 		
 	}
 	
-	public Video(int id, int userid, String name, int timecreated) {
+	public Video(int id, int userid, String name, String url, String html, int timecreated) {
 		super();
 		this.id = id;
 		this.userid = userid;
 		this.name = name;
+		this.url = url;
+		this.html = html;
 		this.timecreated = timecreated;
 	}
 	
@@ -44,6 +48,22 @@ public class Video implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getHtml() {
+		return html;
+	}
+
+	public void setHtml(String html) {
+		this.html = html;
+	}
+	
 	public int getTimecreated() {
 		return timecreated;
 	}

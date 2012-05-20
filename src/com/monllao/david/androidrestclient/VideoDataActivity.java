@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class VideoDataActivity extends Activity {
@@ -128,6 +129,20 @@ public class VideoDataActivity extends Activity {
     public void processShare(Video video) {
     	Log.e(AndroidRestClientActivity.APP_NAME, "processShare - with video id = " + video.getId());
     	Toast.makeText(this, "Video uploaded!", Toast.LENGTH_LONG).show();
+    	
+    	showLink(video);
+    }
+    
+    
+    /**
+     * Displays the link to the video
+     */
+    private void showLink(Video video) {
+    	
+    	TextView linkView = (TextView) findViewById(R.id.link);
+    	
+    	linkView.setText(video.getUrl());
+    	linkView.setVisibility(View.VISIBLE);
     }
     
     /**
