@@ -24,7 +24,7 @@ public class PutServerVideoReceiver extends BroadcastReceiver {
 		
 		} else {
 			// Return to the activity to reload user
-			activity.processShare();
+			activity.processShare(video);
 		}
 	}
 
