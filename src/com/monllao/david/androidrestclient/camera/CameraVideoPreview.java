@@ -83,12 +83,20 @@ public class CameraVideoPreview extends SurfaceView implements SurfaceHolder.Cal
         mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
 
         // Set the Profile
-        CamcorderProfile highProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_LOW);
-        highProfile.fileFormat = MediaRecorder.OutputFormat.MPEG_4;
-        highProfile.videoCodec = MediaRecorder.VideoEncoder.H264;
-        highProfile.videoFrameWidth = width;
-        highProfile.videoFrameHeight = height;
-        mediaRecorder.setProfile(highProfile);
+        CamcorderProfile profile = CamcorderProfile.get(CamcorderProfile.QUALITY_LOW);
+        CamcorderProfile highProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
+        profile.fileFormat = MediaRecorder.OutputFormat.MPEG_4;
+        profile.videoCodec = MediaRecorder.VideoEncoder.H264;
+        profile.videoFrameWidth = width;
+        profile.videoFrameHeight = height;
+        
+        // High audio quality
+        profile.audioCodec = highProfile.audioCodec;
+        profile.audioChannels = highProfile.audioChannels;
+        profile.audioSampleRate = highProfile.audioSampleRate;
+        profile.audioBitRate = highProfile.audioBitRate;
+        
+        mediaRecorder.setProfile(profile);
         mediaRecorder.setMaxDuration(AndroidRestClientActivity.VIDEO_SECS * 1000);
 		
         // Set output file

@@ -340,12 +340,12 @@ public class VideoRecorder {
 		while (it.hasNext()) {
 			Size size = it.next();
 
-			Log.e(AndroidRestClientActivity.APP_NAME, "Supports: " + size.width+ ":" + size.height);
+			Log.v(AndroidRestClientActivity.APP_NAME, "Supports: " + size.width+ ":" + size.height);
 			
 			// Same height minimum width available, probably 4:3
 			if (size.height == screenHeight && size.width < screenWidth) {
 
-				Log.e(AndroidRestClientActivity.APP_NAME, "Selected size: " + size.width+ ":" + size.height);
+				Log.i(AndroidRestClientActivity.APP_NAME, "Selected size: " + size.width+ ":" + size.height);
 				
 				height = size.height;
 				width = size.width;
