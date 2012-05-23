@@ -36,7 +36,8 @@
         </activity>
 
         <activity android:name=".VideoDataActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar"/>
         
         <service android:name="com.monllao.david.androidrestclient.service.AddServerUserService"/>
         <service android:name="com.monllao.david.androidrestclient.service.GetServerUserService"/>
