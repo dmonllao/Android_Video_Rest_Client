@@ -87,6 +87,8 @@ public class CameraVideoPreview extends SurfaceView implements SurfaceHolder.Cal
         CamcorderProfile highProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
         profile.fileFormat = MediaRecorder.OutputFormat.MPEG_4;
         profile.videoCodec = MediaRecorder.VideoEncoder.H264;
+//        profile.videoBitRate = highProfile.videoBitRate;
+        profile.videoFrameRate = highProfile.videoFrameRate;
         profile.videoFrameWidth = width;
         profile.videoFrameHeight = height;
         
@@ -153,6 +155,7 @@ public class CameraVideoPreview extends SurfaceView implements SurfaceHolder.Cal
 		// Setting preview size
 		Camera.Parameters cameraParameters = mCamera.getParameters();
 		cameraParameters.setPreviewSize(this.width, this.height);
+		cameraParameters.setColorEffect(Camera.Parameters.EFFECT_MONO);
 		mCamera.setParameters(cameraParameters);
 		
 		try {
