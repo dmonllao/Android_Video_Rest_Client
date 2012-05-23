@@ -53,6 +53,8 @@ public class VideoDataActivity extends Activity {
             public void onClick(View view) {
 
             	submitted = true;
+            	titleText.setEnabled(false);
+            	confirmButton.setEnabled(false);
             	
             	// The video id has been received so send the petition
             	if (video != null) {
@@ -127,7 +129,7 @@ public class VideoDataActivity extends Activity {
     
     
     public void processShare(Video video) {
-    	Log.e(AndroidRestClientActivity.APP_NAME, "processShare - with video id = " + video.getId());
+    	Log.i(AndroidRestClientActivity.APP_NAME, "processShare - with video id = " + video.getId());
     	Toast.makeText(this, "Video uploaded!", Toast.LENGTH_LONG).show();
     	
     	showLink(video);
@@ -151,7 +153,7 @@ public class VideoDataActivity extends Activity {
      */
     public void showProblem(String message) {
 
-    	Log.e(AndroidRestClientActivity.APP_NAME, message);
+    	Log.i(AndroidRestClientActivity.APP_NAME, message);
     	Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
