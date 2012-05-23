@@ -38,10 +38,11 @@
         
     <ImageButton
       android:id="@+id/button_share"
-      android:src="@drawable/share"
+      android:src="@drawable/share_220"
       android:padding="0dp"
+      android:background="@null"
       android:layout_marginRight="10dp"
-      android:layout_marginTop="20dp"
+      android:layout_marginTop="25dp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
     />
