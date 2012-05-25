@@ -33,6 +33,9 @@ public class VideoDataActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video_data);
 
+        // Add the video as soon as possible
+        addVideo();
+        
         // Registering receivers
         IntentFilter addvideofilter = new IntentFilter(AndroidRestClientActivity.ACTION_ADDVIDEO);
         addVideoReceiver = new AddServerVideoReceiver();
@@ -41,9 +44,6 @@ public class VideoDataActivity extends Activity {
         IntentFilter putvideofilter = new IntentFilter(AndroidRestClientActivity.ACTION_PUTVIDEO);
         putVideoReceiver = new PutServerVideoReceiver();
         registerReceiver(putVideoReceiver, putvideofilter);
-        
-        // Add the video as soon as possible
-        addVideo();
         
         // Form elements
         titleText = (EditText) findViewById(R.id.title);
@@ -129,24 +129,18 @@ public class VideoDataActivity extends Activity {
     
     
     public void processShare(Video video) {
+    	
     	Log.i(AndroidRestClientActivity.APP_NAME, "processShare - with video id = " + video.getId());
     	Toast.makeText(this, "Video uploaded!", Toast.LENGTH_LONG).show();
     	
-    	showLink(video);
+    	// Set up the video data while the video is being sent
+        Intent intent = new Intent(this, ShareActivity.class);
+        intent.putExtra("video", video);
+        
+        startActivityForResult(intent, AndroidRestClientActivity.ACTIVITY_SHARE);
     }
     
-    
-    /**
-     * Displays the link to the video
-     */
-    private void showLink(Video video) {
-    	
-    	TextView linkView = (TextView) findViewById(R.id.link);
-    	
-    	linkView.setText(video.getUrl());
-    	linkView.setVisibility(View.VISIBLE);
-    }
-    
+
     /**
      * Outputs info about a problem, used to notice system failures
      * @param message

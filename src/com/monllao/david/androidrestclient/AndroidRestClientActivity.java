@@ -22,7 +22,8 @@ public class AndroidRestClientActivity extends Activity {
 	public static String ACTION_ADDUSER = "event-adduser";
 	public static String ACTION_ADDVIDEO = "event-addvideo";
 	public static String ACTION_PUTVIDEO = "event-putvideo";
-	public static int ACTIVITY_VIDEODATA = 1;
+	public static final int ACTIVITY_VIDEODATA = 1;
+	public static final int ACTIVITY_SHARE = 2;
 	public static int VIDEO_SECS = 10;
 	
 	/**
