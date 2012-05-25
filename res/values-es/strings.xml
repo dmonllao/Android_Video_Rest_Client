@@ -7,4 +7,5 @@
     <string name="app_user_set_up">Usuario disponible en el servidor</string>
     <string name="set_video_data">Confirmar</string>
     <string name="set_title">Video title</string>
+    <string name="sharing">Compartiendo video</string>
 </resources>
