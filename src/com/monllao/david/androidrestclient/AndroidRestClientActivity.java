@@ -125,16 +125,12 @@ public class AndroidRestClientActivity extends Activity {
     
     
     /**
-     * If the videodata activity is cancelled finish the activity
+     * If the videodata activity is cancelled allow the user to record another video
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch(resultCode) {
-	        case RESULT_CANCELED:
-	            setResult(RESULT_CANCELED);
-	            finish();
-        }
-        super.onActivityResult(requestCode, resultCode, data);
+    	super.onActivityResult(requestCode, resultCode, data);
     }
+    
     
     /**
      * Sets the user who are recording
