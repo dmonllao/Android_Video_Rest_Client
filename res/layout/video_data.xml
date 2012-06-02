@@ -15,8 +15,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     
-    <Button android:id="@+id/set_video_data" 
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp">
+
+        <ImageButton
+            android:id="@+id/facebook_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="60dp"
+            android:background="@null"
+            android:src="@drawable/facebook_disabled" />
+
+        <ImageButton
+            android:id="@+id/twitter_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="60dp"
+            android:background="@null"
+            android:src="@drawable/twitter_disabled" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/set_video_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:text="@string/set_video_data"
-        android:layout_height="wrap_content" 
-        android:layout_width="wrap_content"/>
+        android:textSize="20dp" />
+    
 </LinearLayout>
