@@ -25,7 +25,7 @@
     />
     
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".AndroidRestClientActivity"
+        <activity android:name="com.monllao.david.androidrestclient.AndroidRestClientActivity"
                   android:screenOrientation="landscape"
                   android:label="@string/app_name"
                   android:theme="@android:style/Theme.NoTitleBar">
@@ -35,18 +35,34 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".VideoDataActivity"
+        <activity android:name="com.monllao.david.androidrestclient.VideoDataActivity"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar"/>
         
-        <activity android:name=".ShareActivity"
+        <activity android:name="com.monllao.david.androidrestclient.ShareActivity"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar"/>
+        
+        <activity android:name="com.monllao.david.androidrestclient.share.FacebookShareActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar"/>
+        
+        <activity android:name="com.monllao.david.androidrestclient.share.TwitterShareActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:launchMode="singleInstance">    
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="androidrestclient" android:host="twittershareactivity"/>
+            </intent-filter>
+        </activity>
         
         <service android:name="com.monllao.david.androidrestclient.service.AddServerUserService"/>
         <service android:name="com.monllao.david.androidrestclient.service.GetServerUserService"/>
         <service android:name="com.monllao.david.androidrestclient.service.AddServerVideoService"/>
-        <service android:name="com.monllao.david.androidrestclient.service.PutServerVideoService"/>
+        <service android:name=".service.PutServerVideoService"/>
         
     </application>
 </manifest>
