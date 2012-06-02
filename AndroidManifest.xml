@@ -59,6 +59,10 @@
             </intent-filter>
         </activity>
         
+        <activity android:name="com.monllao.david.androidrestclient.FeedbackActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar"/>
+        
         <service android:name="com.monllao.david.androidrestclient.service.AddServerUserService"/>
         <service android:name="com.monllao.david.androidrestclient.service.GetServerUserService"/>
         <service android:name="com.monllao.david.androidrestclient.service.AddServerVideoService"/>
