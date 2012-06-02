@@ -8,4 +8,13 @@
     <string name="set_video_data">Confirm</string>
     <string name="set_title">Video title</string>
     <string name="sharing">Uploading video</string>
+    <string name="sharing_result">Video shared to the selected social networks</string>
+    <string name="empty"></string>
+    <string name="facebook_problem">Network error, the video can\'t be shared to Facebook</string>
+    <string name="twitter_problem">Network error, the video can\'t be shared to Twitter</string>
+    <string name="twitter_allowme">Authorize this app to share to Twitter</string>
+    <string name="twitter_ok">Shared to Twitter</string>
+    <string name="facebook_ok">Shared to Facebook</string>
+    <string name="twitter_loading">Sending data to Twitter</string>
+    <string name="facebook_loading">Sending data to Facebook</string>
 </resources>
