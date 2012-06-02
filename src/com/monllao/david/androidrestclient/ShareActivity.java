@@ -15,6 +15,7 @@ public class ShareActivity extends Activity {
 	
 	public static final int ACTIVITY_SHARE_FACEBOOK = 3;
 	public static final int ACTIVITY_SHARE_TWITTER = 4;
+	public static final int ACTIVITY_FEEDBACK = 5;
 
 	Video video;
 	

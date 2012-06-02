@@ -21,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
+import com.monllao.david.androidrestclient.FeedbackActivity;
 import com.monllao.david.androidrestclient.R;
+import com.monllao.david.androidrestclient.ShareActivity;
 import com.monllao.david.androidrestclient.utils.PropertiesManager;
 
 public class TwitterShareActivity extends Activity implements Shareable {
@@ -116,9 +118,8 @@ public class TwitterShareActivity extends Activity implements Shareable {
 
 	        textView.setText(feedback);
 
-	        // Return to ShareActivity
-	    	setResult(RESULT_OK);
-	    	finish();
+	        // Display feedback layout (if we finish the activity we'll return to the api.twitter.com activity)
+	    	initFeedbackActivity();
 		}
 
     }
@@ -224,5 +225,15 @@ public class TwitterShareActivity extends Activity implements Shareable {
 		}
 		
 		return true;
+	}
+	
+	
+	private void initFeedbackActivity() {
+
+        Log.i(AndroidRestClientActivity.APP_NAME, "Sending intent to Feedback");
+    
+    	Intent intent = new Intent(this, FeedbackActivity.class);
+    	intent.putExtra("message", message);
+        startActivityForResult(intent, ShareActivity.ACTIVITY_FEEDBACK);
 	}
 }
