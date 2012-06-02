@@ -1,10 +1,5 @@
 package com.monllao.david.androidrestclient;
 
-import com.monllao.david.androidrestclient.receiver.AddServerVideoReceiver;
-import com.monllao.david.androidrestclient.receiver.PutServerVideoReceiver;
-import com.monllao.david.androidrestclient.service.AddServerVideoService;
-import com.monllao.david.androidrestclient.service.PutServerVideoService;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -13,8 +8,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.monllao.david.androidrestclient.receiver.AddServerVideoReceiver;
+import com.monllao.david.androidrestclient.receiver.PutServerVideoReceiver;
+import com.monllao.david.androidrestclient.service.AddServerVideoService;
+import com.monllao.david.androidrestclient.service.PutServerVideoService;
 
 public class VideoDataActivity extends Activity {
 
@@ -23,18 +23,19 @@ public class VideoDataActivity extends Activity {
 	
 	// Form elements
 	private EditText titleText;
+	private ImageButton facebookButton;
+	private ImageButton twitterButton;
 	private Button confirmButton;
 	private boolean submitted = false;
 
 	private Video video;
-	
+
+	private boolean toFacebook = false;
+	private boolean toTwitter = false;
 	
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video_data);
-
-        // Add the video as soon as possible
-        addVideo();
         
         // Registering receivers
         IntentFilter addvideofilter = new IntentFilter(AndroidRestClientActivity.ACTION_ADDVIDEO);
@@ -44,6 +45,9 @@ public class VideoDataActivity extends Activity {
         IntentFilter putvideofilter = new IntentFilter(AndroidRestClientActivity.ACTION_PUTVIDEO);
         putVideoReceiver = new PutServerVideoReceiver();
         registerReceiver(putVideoReceiver, putvideofilter);
+
+        // Add the video as soon as possible
+        addVideo();
         
         // Form elements
         titleText = (EditText) findViewById(R.id.title);
@@ -64,6 +68,38 @@ public class VideoDataActivity extends Activity {
             }
 
         });
+        
+        // To allow facebook sharing
+        facebookButton = (ImageButton) findViewById(R.id.facebook_image);
+        facebookButton.setOnClickListener(new View.OnClickListener(
+        		) {
+			
+			public void onClick(View v) {
+				if (toFacebook == false) {
+					facebookButton.setImageResource(R.drawable.facebook_enabled);
+					toFacebook = true;
+				} else {
+					facebookButton.setImageResource(R.drawable.facebook_disabled);
+					toFacebook = false;
+				}
+			}
+		});
+        
+        // To allow twitter sharing
+        twitterButton = (ImageButton) findViewById(R.id.twitter_image);
+        twitterButton.setOnClickListener(new View.OnClickListener(
+        		) {
+			
+			public void onClick(View v) {
+				if (toTwitter == false) {
+					twitterButton.setImageResource(R.drawable.twitter_enabled);
+					toTwitter = true;
+				} else {
+					twitterButton.setImageResource(R.drawable.twitter_disabled);
+					toTwitter = false;
+				}
+			}
+		});
     }
     
     
@@ -73,15 +109,6 @@ public class VideoDataActivity extends Activity {
     	// Unregistering the broadcast receivers
     	unregisterReceiver(addVideoReceiver);
     	unregisterReceiver(putVideoReceiver);
-    }
-    
-    
-    /**
-     * Finish the application
-     */
-    public void onBackPressed() {
-    	setResult(RESULT_CANCELED);
-    	finish();
     }
     
 
@@ -136,6 +163,10 @@ public class VideoDataActivity extends Activity {
     	// Set up the video data while the video is being sent
         Intent intent = new Intent(this, ShareActivity.class);
         intent.putExtra("video", video);
+
+        // Set up the sharing options
+    	intent.putExtra("facebook", toFacebook);
+    	intent.putExtra("twitter", toTwitter);
         
         startActivityForResult(intent, AndroidRestClientActivity.ACTIVITY_SHARE);
     }
@@ -151,4 +182,14 @@ public class VideoDataActivity extends Activity {
     	Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
+
+    /**
+     * If the share activity is cancelled finish the activity and return the user to the recordin activity
+     */
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    	titleText.setEnabled(true);
+    	confirmButton.setEnabled(true);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }
