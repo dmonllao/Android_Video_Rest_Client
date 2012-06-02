@@ -34,7 +34,7 @@ public class AndroidRestClientActivity extends Activity {
 	/**
 	 * The application user
 	 */
-	private User user;
+	private User user = null;
 	
 	private VideoRecorder videoRecorder;
 	
@@ -83,7 +83,7 @@ public class AndroidRestClientActivity extends Activity {
     	Log.i(AndroidRestClientActivity.APP_NAME, "AndroidRestClientActivity.onresume");
 
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
+		wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, AndroidRestClientActivity.APP_NAME);
 		wl.acquire();
 
 		// Fill the layouts with the video recorder, we don't wait for 
