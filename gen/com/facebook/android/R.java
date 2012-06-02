@@ -41,16 +41,14 @@ public final class R {
         public static final int button_share=0x7f060004;
         public static final int counter=0x7f060002;
         public static final int facebook_feedback=0x7f060000;
-        public static final int facebook_image=0x7f06000b;
-        public static final int link=0x7f060008;
+        public static final int facebook_image=0x7f060009;
+        public static final int link=0x7f060006;
         public static final int screen=0x7f060001;
-        public static final int set_video_data=0x7f06000d;
-        public static final int share_facebook=0x7f060006;
+        public static final int set_video_data=0x7f06000b;
         public static final int share_text=0x7f060005;
-        public static final int share_twitter=0x7f060007;
-        public static final int title=0x7f06000a;
-        public static final int twitter_feedback=0x7f060009;
-        public static final int twitter_image=0x7f06000c;
+        public static final int title=0x7f060008;
+        public static final int twitter_feedback=0x7f060007;
+        public static final int twitter_image=0x7f06000a;
     }
     public static final class layout {
         public static final int facebook=0x7f030000;
