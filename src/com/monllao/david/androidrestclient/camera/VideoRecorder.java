@@ -350,7 +350,7 @@ public class VideoRecorder {
 				width = size.width;
 				
 			// As an alternative for some devices
-			} else if (screenHeight < size.height && screenWidth > size.width && height == 0 && width == 0) {
+			} else if (screenHeight > size.height && screenWidth > size.width && height == 0 && width == 0) {
 				
 				height = size.height;
 				width = size.width;
