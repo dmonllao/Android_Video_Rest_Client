@@ -24,10 +24,12 @@ import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 import com.monllao.david.androidrestclient.FeedbackActivity;
 import com.monllao.david.androidrestclient.R;
 import com.monllao.david.androidrestclient.ShareActivity;
-import com.monllao.david.androidrestclient.utils.PropertiesManager;
 
 public class TwitterShareActivity extends Activity implements Shareable {
 
+	private static final String APP_ID = "YOURAPPID";
+	private static final String SECRET_ID = "YOURSECRETID";
+	
 	private Twitter twitter;
 	private RequestToken requestToken;
 
@@ -36,6 +38,8 @@ public class TwitterShareActivity extends Activity implements Shareable {
 	SharedPreferences prefs;
 	
 	TextView textView;
+	
+	
 	
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,8 +131,8 @@ public class TwitterShareActivity extends Activity implements Shareable {
     
 	public boolean getToken() throws NotFoundException, IOException {
 
-		String twitter_app_id = PropertiesManager.get("twitter.app_id");
-		String twitter_secret_id = PropertiesManager.get("twitter.secret_id");
+		String twitter_app_id = TwitterShareActivity.APP_ID;
+		String twitter_secret_id = TwitterShareActivity.SECRET_ID;
 
 		String twitter_token = prefs.getString("twitter_token", "");
 		String twitter_token_secret = prefs.getString("twitter_token_secret", "");
@@ -159,8 +163,8 @@ public class TwitterShareActivity extends Activity implements Shareable {
 	 */
     public void getNewToken() throws NotFoundException, IOException {
 
-    	String twitter_app_id = PropertiesManager.get("twitter.app_id");
-		String twitter_secret_id = PropertiesManager.get("twitter.secret_id");
+    	String twitter_app_id = TwitterShareActivity.APP_ID;
+		String twitter_secret_id = TwitterShareActivity.SECRET_ID;
 		
 		ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
 		configurationBuilder.setOAuthConsumerKey(twitter_app_id);

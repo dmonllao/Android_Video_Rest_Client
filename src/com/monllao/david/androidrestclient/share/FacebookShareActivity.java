@@ -6,7 +6,6 @@ import java.net.MalformedURLException;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -17,10 +16,11 @@ import com.facebook.android.Facebook.DialogListener;
 import com.facebook.android.FacebookError;
 import com.facebook.android.R;
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
-import com.monllao.david.androidrestclient.utils.PropertiesManager;
 
 public class FacebookShareActivity extends Activity {
 
+	private static final String APP_ID = "YOURAPPID";
+	
 	private String[] facebookPermissions = {"publish_stream"};
     Facebook facebook;
     private SharedPreferences prefs;
@@ -34,13 +34,7 @@ public class FacebookShareActivity extends Activity {
 
         textView = (TextView) this.findViewById(R.id.facebook_feedback);
         
-        try {
-			facebook = new Facebook(PropertiesManager.get("facebook.app_id"));
-		} catch (NotFoundException e) {
-			Log.e(AndroidRestClientActivity.APP_NAME, "Facebook NotFound exception: " + e.getMessage());
-		} catch (IOException e) {
-			Log.e(AndroidRestClientActivity.APP_NAME, "Facebook IO exception: " + e.getMessage());
-		}
+		facebook = new Facebook(FacebookShareActivity.APP_ID);
         
         message = getIntent().getStringExtra("message");
         
