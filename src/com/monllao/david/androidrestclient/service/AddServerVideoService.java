@@ -16,6 +16,10 @@ import com.monllao.david.androidrestclient.camera.Base64Helper;
 import com.monllao.david.androidrestclient.utils.PropertiesManager;
 import com.monllao.david.androidrestclient.utils.RestClient;
 
+
+/**
+ * Sends a POST petition the server to create the video
+ */
 public class AddServerVideoService extends RestService {
 
 	public AddServerVideoService() {

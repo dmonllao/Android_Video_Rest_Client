@@ -14,6 +14,10 @@ import com.monllao.david.androidrestclient.User;
  */
 public class AddServerUserReceiver extends BroadcastReceiver {
 
+	
+	/**
+	 * Fired when received
+	 */
 	public void onReceive(Context context, Intent intent) {
 
 		Log.v(AndroidRestClientActivity.APP_NAME, "AddServerUserReceiver");

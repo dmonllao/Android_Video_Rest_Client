@@ -9,8 +9,16 @@ import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 import com.monllao.david.androidrestclient.Video;
 import com.monllao.david.androidrestclient.VideoDataActivity;
 
+
+/**
+ * Initiates the share activity
+ */
 public class PutServerVideoReceiver extends BroadcastReceiver {
 
+	
+	/**
+	 * Fired when received
+	 */
 	public void onReceive(Context context, Intent intent) {
 		
 		Log.v(AndroidRestClientActivity.APP_NAME, "PutServerVideoReceiver");

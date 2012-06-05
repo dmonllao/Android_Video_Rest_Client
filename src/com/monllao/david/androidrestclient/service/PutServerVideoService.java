@@ -12,6 +12,10 @@ import com.monllao.david.androidrestclient.Video;
 import com.monllao.david.androidrestclient.utils.PropertiesManager;
 import com.monllao.david.androidrestclient.utils.RestClient;
 
+
+/**
+ * Send a PUT petition to update the video data
+ */
 public class PutServerVideoService extends RestService {
 
 	public PutServerVideoService() {

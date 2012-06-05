@@ -9,8 +9,13 @@ import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 import com.monllao.david.androidrestclient.Video;
 import com.monllao.david.androidrestclient.VideoDataActivity;
 
+
 public class AddServerVideoReceiver extends BroadcastReceiver {
 
+	
+	/**
+	 * Fired when received
+	 */
 	public void onReceive(Context context, Intent intent) {
 
 		Log.v(AndroidRestClientActivity.APP_NAME, "AddServerVideoReceiver");

@@ -10,24 +10,47 @@ import org.restlet.engine.http.connector.HttpClientHelper;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ClientResource;
 
+
+/**
+ * Adapter to Restlet client
+ */
 public class RestClient {
 
 	public RestClient() {
 		
 	}
 	
+	/**
+	 * Adapter to a get method petition
+	 * @param url
+	 * @return
+	 */
 	public Representation get(String url) {
 		
 		ClientResource cr = this.getClientResource(url);
 		return cr.get();
 	}
 	
+	
+	/**
+	 * Adapter to a post method petition
+	 * @param url
+	 * @param form
+	 * @return
+	 */
 	public Representation post(String url, Form form) {
 	
 		ClientResource cr = this.getClientResource(url);
 		return cr.post(form);
 	}
 
+	
+	/**
+	 * Adapter to a put method petition
+	 * @param url
+	 * @param form
+	 * @return
+	 */
 	public Representation put(String url, Form form) {
 		
 		ClientResource cr = this.getClientResource(url);
@@ -36,7 +59,6 @@ public class RestClient {
 	
 	/**
 	 * Initializes the client resource
-	 * 
 	 * @param url
 	 * @return
 	 */
