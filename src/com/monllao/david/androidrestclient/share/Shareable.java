@@ -7,7 +7,7 @@ public interface Shareable {
 
 	/**
 	 * Shares the message
-	 * @return A message with an error if it happens
+	 * @return Success?
 	 */
 	public boolean share();
 }

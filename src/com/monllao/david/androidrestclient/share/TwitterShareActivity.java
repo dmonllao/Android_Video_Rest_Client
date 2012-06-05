@@ -25,6 +25,10 @@ import com.monllao.david.androidrestclient.FeedbackActivity;
 import com.monllao.david.androidrestclient.R;
 import com.monllao.david.androidrestclient.ShareActivity;
 
+
+/**
+ * Manages the twitter sharing
+ */
 public class TwitterShareActivity extends Activity implements Shareable {
 
 	private static final String APP_ID = "YOURAPPID";

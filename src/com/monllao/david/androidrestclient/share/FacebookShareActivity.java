@@ -17,6 +17,9 @@ import com.facebook.android.FacebookError;
 import com.facebook.android.R;
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 
+/**
+ * Manages the facebook sharing options
+ */
 public class FacebookShareActivity extends Activity {
 
 	private static final String APP_ID = "YOURAPPID";
