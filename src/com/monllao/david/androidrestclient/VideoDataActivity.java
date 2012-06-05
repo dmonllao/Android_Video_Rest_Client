@@ -16,6 +16,10 @@ import com.monllao.david.androidrestclient.receiver.PutServerVideoReceiver;
 import com.monllao.david.androidrestclient.service.AddServerVideoService;
 import com.monllao.david.androidrestclient.service.PutServerVideoService;
 
+
+/**
+ * Activity to select the social networks and to fill the video description
+ */
 public class VideoDataActivity extends Activity {
 
 	private AddServerVideoReceiver addVideoReceiver;
@@ -33,6 +37,9 @@ public class VideoDataActivity extends Activity {
 	private boolean toFacebook = false;
 	private boolean toTwitter = false;
 	
+	/**
+	 * Sends the video to the server and fills the form
+	 */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video_data);

@@ -5,6 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * Silly activity to display the sharing feedback
+ * 
+ * Includes a link to the URI
+ */
 public class FeedbackActivity extends Activity {
 	
 	protected void onCreate(Bundle savedInstanceState) {

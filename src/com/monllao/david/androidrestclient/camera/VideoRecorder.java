@@ -23,6 +23,13 @@ import com.monllao.david.androidrestclient.R;
 import com.monllao.david.androidrestclient.User;
 import com.monllao.david.androidrestclient.VideoDataActivity;
 
+/**
+ * Recording manager
+ * 
+ * Manages the whole recording / video player processes, 
+ * initialises the camera preview and manages the UI layout 
+ * changes
+ */
 public class VideoRecorder {
 	
 	/**
@@ -324,7 +331,7 @@ public class VideoRecorder {
 
 
     /**
-     * The desirable size is mmaximum screen height with minimal width
+     * The desirable size is maximum screen height with minimal width
      */
     protected void calculateOptimalScreenSize() {
 

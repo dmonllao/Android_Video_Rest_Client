@@ -11,6 +11,9 @@ import android.widget.Toast;
 import com.monllao.david.androidrestclient.share.FacebookShareActivity;
 import com.monllao.david.androidrestclient.share.TwitterShareActivity;
 
+/**
+ * Activity which manages the video sharing options
+ */
 public class ShareActivity extends Activity {
 	
 	public static final int ACTIVITY_SHARE_FACEBOOK = 3;
@@ -57,6 +60,9 @@ public class ShareActivity extends Activity {
     }
     
     
+    /**
+     * Throws an intent to share to facebook
+     */
     private void facebookShare() {
 
     	Log.i(AndroidRestClientActivity.APP_NAME, "Sending intent to FacebookShare");
@@ -67,6 +73,9 @@ public class ShareActivity extends Activity {
     }
     
     
+    /**
+     * Throws an intent to share to twitter
+     */
     private void twitterShare() {
 
         Log.i(AndroidRestClientActivity.APP_NAME, "Sending intent to TwitterShare");
@@ -89,6 +98,12 @@ public class ShareActivity extends Activity {
     }
 
 	
+    /**
+     * Share activities result listener
+     * 
+     * Depending on the result activity show feedback 
+     * or calls the other shared network method 
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 

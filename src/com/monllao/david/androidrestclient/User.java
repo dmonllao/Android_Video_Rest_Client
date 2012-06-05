@@ -63,6 +63,12 @@ public class User implements Serializable {
 	}
 	
 	
+	/**
+	 * New activity constructor
+	 * @param context
+	 * @throws NotFoundException
+	 * @throws IOException
+	 */
 	public User(Context context) throws NotFoundException, IOException {
 		init(context);
 	}
@@ -78,7 +84,7 @@ public class User implements Serializable {
 	
 	
 	/**
-	 * Retrieves / created the user from/on the server
+	 * Retrieves / creates the user from/on the server
 	 * 
 	 * After setting up the email and the password
 	 * @param context

@@ -5,8 +5,6 @@ import android.widget.VideoView;
 
 /**
  * VideoView extension to assign the Media Player size
- * @author win
- *
  */
 public class RecordingViewer extends VideoView {
 

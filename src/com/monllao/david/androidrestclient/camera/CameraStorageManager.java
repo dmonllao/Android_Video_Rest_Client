@@ -9,9 +9,14 @@ import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 import android.os.Environment;
 import android.util.Log;
 
+/**
+ * Manages the paths / name format to create the videos
+ */
 public class CameraStorageManager {
 
-    /** Create a File for saving an image or video */
+    /** 
+     * Create a File for saving an image or video
+     */
     public static File getOutputMediaFile() {
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.

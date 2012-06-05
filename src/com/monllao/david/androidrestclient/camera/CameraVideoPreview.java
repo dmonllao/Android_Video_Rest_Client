@@ -13,6 +13,11 @@ import android.view.SurfaceView;
 
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 
+/**
+ * Surface View extension 
+ * 
+ * To put the camera into the layout with the appropiate config
+ */
 public class CameraVideoPreview extends SurfaceView implements SurfaceHolder.Callback {
 
 	private SurfaceHolder mHolder;
@@ -29,6 +34,7 @@ public class CameraVideoPreview extends SurfaceView implements SurfaceHolder.Cal
 	
 	/**
 	 * Inits the previewer
+	 * 
 	 * @param context
 	 * @param camera
 	 * @param width

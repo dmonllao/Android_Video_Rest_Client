@@ -8,10 +8,12 @@ import java.io.RandomAccessFile;
 
 import android.util.Base64;
 
+/**
+ * Helper to encode streams to base 64 strings
+ */
 public class Base64Helper {
 
-    
-
+  
     /**
      * Encodes a file to a base 64 string
      * @param file

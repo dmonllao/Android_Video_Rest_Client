@@ -14,6 +14,14 @@ import com.monllao.david.androidrestclient.receiver.AddServerUserReceiver;
 import com.monllao.david.androidrestclient.receiver.GetServerUserReceiver;
 import com.monllao.david.androidrestclient.utils.PropertiesManager;
 
+/**
+ * Launcher activity
+ * 
+ * Fills the main layout with the camera preview and 
+ * buttons to perform the recording actions
+ * 
+ * Delegates the video recording to VideoRecorder
+ */
 public class AndroidRestClientActivity extends Activity {
     
 	public static String APP_NAME = "AndroidRestClient";
@@ -42,20 +50,23 @@ public class AndroidRestClientActivity extends Activity {
 	private AddServerUserReceiver addUserReceiver;
 	
 	/**
-	 * Initialises and gets the application user
+	 * Initialises and gets the application user data
 	 */
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+    	super.onCreate(savedInstanceState);
+        
+    	// The activity view
+    	setContentView(R.layout.main);
         
         Log.i(AndroidRestClientActivity.APP_NAME, "-------------------------------------");
         Log.i(AndroidRestClientActivity.APP_NAME, "AndroidRestClientActivity.oncreate");
         
         try {
         	
+        	// Global initialization
         	PropertiesManager.init(getApplicationContext());
         	
-        	// Registering the receivers
+        	// Registering the receivers of the user actions (get the user and create the user on the server)
 	        IntentFilter getuserfilter = new IntentFilter(AndroidRestClientActivity.ACTION_GETUSER);
 	        getUserReceiver = new GetServerUserReceiver();
 	        registerReceiver(getUserReceiver, getuserfilter);
@@ -64,7 +75,7 @@ public class AndroidRestClientActivity extends Activity {
 	        addUserReceiver = new AddServerUserReceiver();
 	        registerReceiver(addUserReceiver, adduserfilter);
 
-	        // Setting up the application user 
+	        // Set up the application user 
 	        user = new User(this);
 	    	
 	    // Global "set user" catcher
@@ -77,6 +88,11 @@ public class AndroidRestClientActivity extends Activity {
     }
 
     
+    /**
+     * After a blocked screen
+     * 
+     * Takes advantage of the instance attributes to avoid user data reloading 
+     */
     public void onResume() {
     	super.onResume();
     	
@@ -97,6 +113,11 @@ public class AndroidRestClientActivity extends Activity {
     }
     
     
+    /**
+     * Bofore a blocked screen
+     * 
+     * Free the used device resources to allow other applications to use them
+     */
     public void onPause() {
     	super.onPause();
 
@@ -113,6 +134,9 @@ public class AndroidRestClientActivity extends Activity {
     }
     
     
+    /**
+     * Executed when the activity is closed
+     */
     public void onDestroy() {
     	super.onDestroy();
     	
@@ -129,6 +153,7 @@ public class AndroidRestClientActivity extends Activity {
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	super.onActivityResult(requestCode, resultCode, data);
+    	// Nothing, just info
     }
     
     
