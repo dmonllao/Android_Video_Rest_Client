@@ -20,7 +20,7 @@ import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 /**
  * Manages the facebook sharing options
  */
-public class FacebookShareActivity extends Activity {
+public class FacebookShareActivity extends Activity implements Shareable {
 
 	private static final String APP_ID = "YOURAPPID";
 	
