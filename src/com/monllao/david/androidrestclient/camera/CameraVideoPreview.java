@@ -93,7 +93,7 @@ public class CameraVideoPreview extends SurfaceView implements SurfaceHolder.Cal
         CamcorderProfile highProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
         profile.fileFormat = MediaRecorder.OutputFormat.MPEG_4;
         profile.videoCodec = MediaRecorder.VideoEncoder.H264;
-//        profile.videoBitRate = highProfile.videoBitRate;
+        profile.videoBitRate = 2000000;
         profile.videoFrameRate = highProfile.videoFrameRate;
         profile.videoFrameWidth = width;
         profile.videoFrameHeight = height;
