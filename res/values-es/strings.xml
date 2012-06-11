@@ -10,6 +10,7 @@
     <string name="sharing">Compartiendo video</string>
     <string name="sharing_result">Video compartido en las redes sociales elegidas</string>
     <string name="empty"></string>
+    <string name="no_network_selected">No se ha seleccionado ninguna red</string>
     <string name="facebook_problem">Error de red, el video no se puede compartir en facebook</string>
     <string name="twitter_problem">Error de red, el video no se puede compartir en Twitter</string>
     <string name="twitter_allowme">Autoriza esta aplicación para compartir en Twitter</string>

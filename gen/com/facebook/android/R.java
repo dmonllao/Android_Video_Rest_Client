@@ -41,14 +41,13 @@ public final class R {
         public static final int button_share=0x7f060004;
         public static final int counter=0x7f060002;
         public static final int facebook_feedback=0x7f060000;
-        public static final int facebook_image=0x7f060009;
-        public static final int link=0x7f060006;
+        public static final int facebook_image=0x7f060008;
         public static final int screen=0x7f060001;
-        public static final int set_video_data=0x7f06000b;
+        public static final int set_video_data=0x7f06000a;
         public static final int share_text=0x7f060005;
-        public static final int title=0x7f060008;
-        public static final int twitter_feedback=0x7f060007;
-        public static final int twitter_image=0x7f06000a;
+        public static final int title=0x7f060007;
+        public static final int twitter_feedback=0x7f060006;
+        public static final int twitter_image=0x7f060009;
     }
     public static final class layout {
         public static final int facebook=0x7f030000;
@@ -64,9 +63,10 @@ public final class R {
         public static final int app_name=0x7f050000;
         public static final int app_user_set_up=0x7f050004;
         public static final int empty=0x7f050009;
-        public static final int facebook_loading=0x7f050010;
-        public static final int facebook_ok=0x7f05000e;
-        public static final int facebook_problem=0x7f05000a;
+        public static final int facebook_loading=0x7f050011;
+        public static final int facebook_ok=0x7f05000f;
+        public static final int facebook_problem=0x7f05000b;
+        public static final int no_network_selected=0x7f05000a;
         public static final int set_pwd=0x7f050001;
         public static final int set_pwd_button=0x7f050003;
         public static final int set_pwd_info=0x7f050002;
@@ -74,9 +74,9 @@ public final class R {
         public static final int set_video_data=0x7f050005;
         public static final int sharing=0x7f050007;
         public static final int sharing_result=0x7f050008;
-        public static final int twitter_allowme=0x7f05000c;
-        public static final int twitter_loading=0x7f05000f;
-        public static final int twitter_ok=0x7f05000d;
-        public static final int twitter_problem=0x7f05000b;
+        public static final int twitter_allowme=0x7f05000d;
+        public static final int twitter_loading=0x7f050010;
+        public static final int twitter_ok=0x7f05000e;
+        public static final int twitter_problem=0x7f05000c;
     }
 }

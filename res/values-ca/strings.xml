@@ -10,6 +10,7 @@
     <string name="sharing">Compartint vídeo</string>
     <string name="sharing_result">Vídeo compartit a les xarxes socials escollides</string>
     <string name="empty"></string>
+    <string name="no_network_selected">No s\'ha seleccionat cap xarxa social</string>
     <string name="facebook_problem">Error de xarxa, el vídeo no es pot compartir a Facebook</string>
     <string name="twitter_problem">Error de xarxa, el vídeo no es pot compartir a Twitter</string>
     <string name="twitter_allowme">Autoritza aquesta aplicació per compartir a Twitter</string>

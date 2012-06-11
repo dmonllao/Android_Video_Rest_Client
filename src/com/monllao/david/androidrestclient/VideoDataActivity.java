@@ -2,7 +2,6 @@ package com.monllao.david.androidrestclient;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,10 +10,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.monllao.david.androidrestclient.receiver.AddServerVideoReceiver;
-import com.monllao.david.androidrestclient.receiver.PutServerVideoReceiver;
 import com.monllao.david.androidrestclient.service.AddServerVideoService;
-import com.monllao.david.androidrestclient.service.PutServerVideoService;
+import com.monllao.david.androidrestclient.service.ShareService;
+import com.monllao.david.androidrestclient.share.FacebookShareActivity;
+import com.monllao.david.androidrestclient.share.TwitterShareActivity;
 
 
 /**
@@ -22,15 +21,12 @@ import com.monllao.david.androidrestclient.service.PutServerVideoService;
  */
 public class VideoDataActivity extends Activity {
 
-	private AddServerVideoReceiver addVideoReceiver;
-	private PutServerVideoReceiver putVideoReceiver;
 	
 	// Form elements
 	private EditText titleText;
 	private ImageButton facebookButton;
 	private ImageButton twitterButton;
 	private Button confirmButton;
-	private boolean submitted = false;
 
 	private Video video;
 
@@ -44,14 +40,9 @@ public class VideoDataActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video_data);
         
-        // Registering receivers
-        IntentFilter addvideofilter = new IntentFilter(AndroidRestClientActivity.ACTION_ADDVIDEO);
-        addVideoReceiver = new AddServerVideoReceiver();
-        registerReceiver(addVideoReceiver, addvideofilter);
-
-        IntentFilter putvideofilter = new IntentFilter(AndroidRestClientActivity.ACTION_PUTVIDEO);
-        putVideoReceiver = new PutServerVideoReceiver();
-        registerReceiver(putVideoReceiver, putvideofilter);
+        // Create the background service which manages the whole app
+        Intent intent = new Intent(this, ShareService.class);
+        startService(intent);
 
         // Add the video as soon as possible
         addVideo();
@@ -63,15 +54,10 @@ public class VideoDataActivity extends Activity {
 
             public void onClick(View view) {
 
-            	submitted = true;
             	titleText.setEnabled(false);
             	confirmButton.setEnabled(false);
             	
-            	// The video id has been received so send the petition
-            	if (video != null) {
-            		video.setName(titleText.getText().toString());
-            		putVideo();
-            	}
+            	beginShare();
             }
 
         });
@@ -110,29 +96,6 @@ public class VideoDataActivity extends Activity {
     }
     
     
-    public void onDestroy() {
-    	super.onDestroy();
-    	
-    	// Unregistering the broadcast receivers
-    	unregisterReceiver(addVideoReceiver);
-    	unregisterReceiver(putVideoReceiver);
-    }
-    
-
-    /**
-     * Starts the service the update the video
-     */
-    protected void putVideo() {
-
-    	Intent intent = new Intent(this, PutServerVideoService.class);
-    	intent.setAction(AndroidRestClientActivity.ACTION_PUTVIDEO);
-    	
-    	intent.putExtra("video", video);
-    	
-    	startService(intent);
-    }
-    
-
     /**
      * Starts the service to add the video
      */
@@ -149,54 +112,99 @@ public class VideoDataActivity extends Activity {
     
     
     /**
-     * When the video is uploaded
-     * @param video
+     * Throws an intent to share to facebook
      */
-    public void processServerVideo(Video video) {
-    	this.video = video;
+    private void facebookShare() {
+
+    	Log.i(AndroidRestClientActivity.APP_NAME, "Sending intent to FacebookShare");
     	
-    	// Send the PutVideo petition if the description was set
-    	if (submitted == true) {
-    		putVideo();
-    	}
+    	Intent facebookIntent = new Intent(this, FacebookShareActivity.class);
+        startActivityForResult(facebookIntent, AndroidRestClientActivity.ACTIVITY_SHARE_FACEBOOK);
     }
     
     
-    public void processShare(Video video) {
-    	
-    	Log.i(AndroidRestClientActivity.APP_NAME, "processShare - with video id = " + video.getId());
-    	Toast.makeText(this, "Video uploaded!", Toast.LENGTH_LONG).show();
-    	
-    	// Set up the video data while the video is being sent
-        Intent intent = new Intent(this, ShareActivity.class);
-        intent.putExtra("video", video);
+    /**
+     * Throws an intent to share to twitter
+     */
+    private void twitterShare() {
 
-        // Set up the sharing options
-    	intent.putExtra("facebook", toFacebook);
-    	intent.putExtra("twitter", toTwitter);
-        
-        startActivityForResult(intent, AndroidRestClientActivity.ACTIVITY_SHARE);
+        Log.i(AndroidRestClientActivity.APP_NAME, "Sending intent to TwitterShare");
+    
+    	Intent twitterIntent = new Intent(this, TwitterShareActivity.class);
+        startActivityForResult(twitterIntent, AndroidRestClientActivity.ACTIVITY_SHARE_TWITTER);
     }
     
 
     /**
-     * Outputs info about a problem, used to notice system failures
-     * @param message
+     * Send the broadcast to notify the confirm click and gets tokens
      */
-    public void showProblem(String message) {
+    private void beginShare() {
 
-    	Log.i(AndroidRestClientActivity.APP_NAME, message);
-    	Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    	Log.i(AndroidRestClientActivity.APP_NAME, "beginShare");
+    	
+		// Notify the service that confirm has been pressed
+		Intent broadcastIntent = new Intent(AndroidRestClientActivity.ACTION_BEGINSHARE);
+		broadcastIntent.putExtra("description", titleText.getText().toString());
+		broadcastIntent.putExtra("toFacebook", toFacebook);
+		broadcastIntent.putExtra("toTwitter", toTwitter);
+		sendBroadcast(broadcastIntent);
+		
+		// Facebook is the first one
+		if (toFacebook) {
+			facebookShare();
+		}
+		
+		// Execute it if we are not going to have facebook return
+		if (toTwitter && !toFacebook) {
+			twitterShare();
+		}
+
+		// Notify in case nothing is selected to allow resubmit
+		if (!toTwitter && !toFacebook) {
+			Toast.makeText(this, getString(R.string.no_network_selected), Toast.LENGTH_SHORT).show();
+	    	titleText.setEnabled(true);
+	    	confirmButton.setEnabled(true);
+		}
     }
 
-
+    
     /**
-     * If the share activity is cancelled finish the activity and return the user to the recordin activity
+     * Initialises the feedback activity to finish the whole application
+     */
+    private void initFeedbackActivity() {
+
+		Intent feedback = new Intent(this, FeedbackActivity.class);
+        startActivityForResult(feedback, AndroidRestClientActivity.ACTIVITY_FEEDBACK);
+    }
+    
+    /**
+     * Disable the form buttons
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	super.onActivityResult(requestCode, resultCode, data);
 
-    	titleText.setEnabled(true);
-    	confirmButton.setEnabled(true);
-        super.onActivityResult(requestCode, resultCode, data);
+    	Log.i(AndroidRestClientActivity.APP_NAME, "VideoDataActivity onActivityResult " + requestCode + "--" + resultCode);
+    	
+    	// Disable form
+    	if (resultCode != RESULT_OK) {
+	    	titleText.setEnabled(true);
+	    	confirmButton.setEnabled(true);
+    	}
+        
+    	switch (requestCode) {
+    	case AndroidRestClientActivity.ACTIVITY_SHARE_FACEBOOK:
+
+    		if (toTwitter) {
+    			twitterShare();
+    		} else {
+    			initFeedbackActivity();
+    		}
+    		break;
+    		
+    	case AndroidRestClientActivity.ACTIVITY_SHARE_TWITTER:
+    		initFeedbackActivity();
+    		break;
+    	}
+    	
     }
 }

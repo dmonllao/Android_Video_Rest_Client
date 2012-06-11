@@ -66,7 +66,8 @@
         <service android:name="com.monllao.david.androidrestclient.service.AddServerUserService"/>
         <service android:name="com.monllao.david.androidrestclient.service.GetServerUserService"/>
         <service android:name="com.monllao.david.androidrestclient.service.AddServerVideoService"/>
-        <service android:name=".service.PutServerVideoService"/>
+        <service android:name="com.monllao.david.androidrestclient.service.PutServerVideoService"/>
+        <service android:name="com.monllao.david.androidrestclient.service.ShareService"/>
         
     </application>
 </manifest>

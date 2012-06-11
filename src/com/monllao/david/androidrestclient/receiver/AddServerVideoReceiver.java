@@ -4,12 +4,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 import com.monllao.david.androidrestclient.Video;
-import com.monllao.david.androidrestclient.VideoDataActivity;
+import com.monllao.david.androidrestclient.service.ShareService;
 
-
+/**
+ * Sets the video data on the share service
+ */
 public class AddServerVideoReceiver extends BroadcastReceiver {
 
 	
@@ -22,14 +25,13 @@ public class AddServerVideoReceiver extends BroadcastReceiver {
 		
 		Video video = (Video) intent.getSerializableExtra("video");
 		
-		VideoDataActivity activity = (VideoDataActivity)context;
+		ShareService service = (ShareService)context;
 		
 		if (video == null) {
-			activity.showProblem("Failed to get the video");
+			Toast.makeText(context, "Failed to get the video", Toast.LENGTH_LONG).show();
 			
 		} else {
-			// Return to the activity
-			activity.processServerVideo(video);
+			service.setVideo(video);
 		}
 	}
 

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 import com.monllao.david.androidrestclient.Video;
@@ -24,15 +25,12 @@ public class PutServerVideoReceiver extends BroadcastReceiver {
 		Log.v(AndroidRestClientActivity.APP_NAME, "PutServerVideoReceiver");
 		
 		Video video = (Video) intent.getSerializableExtra("video");
-
-		VideoDataActivity activity = (VideoDataActivity)context;
 		
+		// Just to send feedback
 		if (video == null) {
-			activity.showProblem("Failed to update the video");
-		
-		} else {
-			// Return to the activity to reload user
-			activity.processShare(video);
+			// Commented as it gives poor info
+			Log.e(AndroidRestClientActivity.APP_NAME, "Failed to update the video description");
+//			Toast.makeText(context, "Failed to update the video description", Toast.LENGTH_SHORT).show();
 		}
 	}
 

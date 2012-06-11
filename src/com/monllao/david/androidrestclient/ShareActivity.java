@@ -16,9 +16,6 @@ import com.monllao.david.androidrestclient.share.TwitterShareActivity;
  */
 public class ShareActivity extends Activity {
 	
-	public static final int ACTIVITY_SHARE_FACEBOOK = 3;
-	public static final int ACTIVITY_SHARE_TWITTER = 4;
-	public static final int ACTIVITY_FEEDBACK = 5;
 
 	Video video;
 	
@@ -60,30 +57,7 @@ public class ShareActivity extends Activity {
     }
     
     
-    /**
-     * Throws an intent to share to facebook
-     */
-    private void facebookShare() {
 
-    	Log.i(AndroidRestClientActivity.APP_NAME, "Sending intent to FacebookShare");
-    	
-    	Intent facebookIntent = new Intent(this, FacebookShareActivity.class);
-        facebookIntent.putExtra("message", message);
-        startActivityForResult(facebookIntent, ShareActivity.ACTIVITY_SHARE_FACEBOOK);
-    }
-    
-    
-    /**
-     * Throws an intent to share to twitter
-     */
-    private void twitterShare() {
-
-        Log.i(AndroidRestClientActivity.APP_NAME, "Sending intent to TwitterShare");
-    
-    	Intent twitterIntent = new Intent(this, TwitterShareActivity.class);
-    	twitterIntent.putExtra("message", message);
-        startActivityForResult(twitterIntent, ShareActivity.ACTIVITY_SHARE_TWITTER);
-    }
     
     
     /**

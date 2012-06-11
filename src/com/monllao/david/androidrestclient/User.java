@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources.NotFoundException;
+import android.preference.PreferenceManager;
 import android.text.method.PasswordTransformationMethod;
 import android.widget.EditText;
 
@@ -91,7 +92,7 @@ public class User implements Serializable {
 	 */
 	protected void getUserFromServer(Context context) {
 		
-		SharedPreferences prefs = context.getSharedPreferences(AndroidRestClientActivity.APP_NAME, 0);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		
 		// If there is no user let's create it
 		if (prefs.getInt("userid", 0) == 0 || prefs.getString("password", "") == "") {
@@ -134,7 +135,7 @@ public class User implements Serializable {
      */
     private void initPassword(final Context context) {
     	
-    	final SharedPreferences prefs = context.getSharedPreferences(AndroidRestClientActivity.APP_NAME, 0);
+    	final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
     	
     	password = prefs.getString("password", "");
     	

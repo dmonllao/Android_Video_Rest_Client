@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
@@ -32,7 +33,7 @@ public class AddServerUserReceiver extends BroadcastReceiver {
 		} else {
 
 			// Stores the generated id into the shared preferences
-			SharedPreferences prefs = context.getSharedPreferences(AndroidRestClientActivity.APP_NAME, 0);
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 			SharedPreferences.Editor editor = prefs.edit();
 			editor.putInt("userid", user.getId());
 			editor.commit();
