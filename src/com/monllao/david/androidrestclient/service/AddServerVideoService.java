@@ -32,7 +32,7 @@ public class AddServerVideoService extends RestService {
 		User userdata = (User)intent.getSerializableExtra("user");
 		String outputPath = intent.getExtras().getString("outputPath");
 
-		Log.v(AndroidRestClientActivity.APP_NAME, "AddServerUserService");
+		Log.v(AndroidRestClientActivity.APP_NAME, "AddServerVideoService");
 
 		String url = "";
 		try {
