@@ -15,6 +15,7 @@ import com.monllao.david.androidrestclient.AndroidRestClientActivity;
 import com.monllao.david.androidrestclient.Video;
 import com.monllao.david.androidrestclient.receiver.AddServerVideoReceiver;
 import com.monllao.david.androidrestclient.receiver.BeginShareReceiver;
+import com.monllao.david.androidrestclient.receiver.EndShareReceiver;
 import com.monllao.david.androidrestclient.receiver.FacebookTokenReceiver;
 import com.monllao.david.androidrestclient.receiver.TwitterTokenReceiver;
 import com.monllao.david.androidrestclient.share.FacebookShare;
@@ -33,6 +34,7 @@ public class ShareService extends Service {
 	private Video video = null;
 	private String description = null;
 	
+	private boolean shareEnded = false;
 	private boolean toFacebook = false;
 	private boolean toTwitter = false;
 	private boolean facebookAvailable = false;
@@ -43,6 +45,7 @@ public class ShareService extends Service {
 	private BeginShareReceiver beginShareReceiver;
 	private FacebookTokenReceiver facebookTokenReceiver;
 	private TwitterTokenReceiver twitterTokenReceiver;
+	private EndShareReceiver endShareReceiver;
 	
 	private SharedPreferences prefs;
 	
@@ -69,6 +72,10 @@ public class ShareService extends Service {
         IntentFilter twitterfilter = new IntentFilter(AndroidRestClientActivity.ACTION_TWITTER);
         twitterTokenReceiver = new TwitterTokenReceiver();
         registerReceiver(twitterTokenReceiver, twitterfilter);
+        
+        IntentFilter endsharefilter = new IntentFilter(AndroidRestClientActivity.ACTION_ENDSHARE);
+        endShareReceiver = new EndShareReceiver();
+        registerReceiver(endShareReceiver, endsharefilter);
 	}
 
 	
@@ -234,13 +241,23 @@ public class ShareService extends Service {
     	return this.video.getName() + " " + this.video.getUrl();
     }
     
+    /**
+     * The user has returned to the recording video activity
+     */
+    public void endShare() {
+    	shareEnded = true;
+    	
+    	// killService will check if all has already shared
+    	killService();
+    }
 	
 	/**
 	 * When both facebook and twitter actions are finished kill the service
 	 */
 	private void killService() {
 		
-		if (toFacebook == false && toTwitter == false) {
+		// Checks if the share has ended because users can share again on the VideoData activity
+		if (toFacebook == false && toTwitter == false && shareEnded == true) {
 			Log.i(AndroidRestClientActivity.APP_NAME, "Killing share service");
 			stopSelf();
 		}
@@ -262,5 +279,6 @@ public class ShareService extends Service {
     	unregisterReceiver(beginShareReceiver);
     	unregisterReceiver(facebookTokenReceiver);
     	unregisterReceiver(twitterTokenReceiver);
+    	unregisterReceiver(endShareReceiver);
     }
 }

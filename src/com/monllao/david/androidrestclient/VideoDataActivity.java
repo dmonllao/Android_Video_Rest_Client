@@ -205,4 +205,16 @@ public class VideoDataActivity extends Activity {
     	}
     	
     }
+    
+    
+    /**
+     * Sends a broadcast message to inform the share service about the video data end
+     */
+    protected void onDestroy() {
+    	super.onDestroy();
+    	
+		Intent endShareIntent = new Intent(AndroidRestClientActivity.ACTION_ENDSHARE);
+		sendBroadcast(endShareIntent);
+    }
+
 }
