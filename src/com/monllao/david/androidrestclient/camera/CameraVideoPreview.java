@@ -20,6 +20,12 @@ import com.monllao.david.androidrestclient.AndroidRestClientActivity;
  */
 public class CameraVideoPreview extends SurfaceView implements SurfaceHolder.Callback {
 
+	/**
+	 * Configure
+	 */
+	private int videoBitRate = 2000000;
+	private boolean blackWhite = true;
+	
 	private SurfaceHolder mHolder;
 	private Camera mCamera;
 	private File outputFile;
@@ -93,7 +99,7 @@ public class CameraVideoPreview extends SurfaceView implements SurfaceHolder.Cal
         CamcorderProfile highProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
         profile.fileFormat = MediaRecorder.OutputFormat.MPEG_4;
         profile.videoCodec = MediaRecorder.VideoEncoder.H264;
-        profile.videoBitRate = 2000000;
+        profile.videoBitRate = this.videoBitRate;
         profile.videoFrameRate = highProfile.videoFrameRate;
         profile.videoFrameWidth = width;
         profile.videoFrameHeight = height;
@@ -161,7 +167,12 @@ public class CameraVideoPreview extends SurfaceView implements SurfaceHolder.Cal
 		// Setting preview size
 		Camera.Parameters cameraParameters = mCamera.getParameters();
 		cameraParameters.setPreviewSize(this.width, this.height);
-		cameraParameters.setColorEffect(Camera.Parameters.EFFECT_MONO);
+		
+		// Effects
+		if (blackWhite == true) {
+			cameraParameters.setColorEffect(Camera.Parameters.EFFECT_MONO);
+		}
+		
 		mCamera.setParameters(cameraParameters);
 		
 		try {
