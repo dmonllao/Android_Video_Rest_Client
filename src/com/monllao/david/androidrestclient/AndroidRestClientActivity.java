@@ -30,6 +30,7 @@ public class AndroidRestClientActivity extends Activity {
 	public static String ACTION_ADDUSER = "event-adduser";
 	public static String ACTION_ADDVIDEO = "event-addvideo";
 	public static String ACTION_BEGINSHARE = "event-beginshare";
+	public static String ACTION_ENDSHARE = "event-endshare";
 	public static String ACTION_PUTVIDEO = "event-putvideo";
 	public static String ACTION_FACEBOOK = "event-facebooktoken";
 	public static String ACTION_TWITTER = "event-twittertoken";
