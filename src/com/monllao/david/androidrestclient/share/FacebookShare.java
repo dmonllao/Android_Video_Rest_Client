@@ -3,7 +3,6 @@ package com.monllao.david.androidrestclient.share;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 

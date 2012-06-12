@@ -4,18 +4,13 @@ import java.io.IOException;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
-import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
-import android.content.Intent;
 import android.content.res.Resources.NotFoundException;
-import android.net.Uri;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
-import com.monllao.david.androidrestclient.R;
 
 public class TwitterShare {
 

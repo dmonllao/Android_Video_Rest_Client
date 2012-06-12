@@ -28,8 +28,6 @@ public class VideoDataActivity extends Activity {
 	private ImageButton twitterButton;
 	private Button confirmButton;
 
-	private Video video;
-
 	private boolean toFacebook = false;
 	private boolean toTwitter = false;
 	
