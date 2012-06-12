@@ -183,8 +183,8 @@ public class VideoDataActivity extends Activity {
 
     	Log.i(AndroidRestClientActivity.APP_NAME, "VideoDataActivity onActivityResult " + requestCode + "--" + resultCode);
     	
-    	// Disable form
-    	if (resultCode != RESULT_OK) {
+    	// Enable form only when we came from the feedback activity
+    	if (resultCode != RESULT_OK && requestCode == AndroidRestClientActivity.ACTIVITY_FEEDBACK) {
 	    	titleText.setEnabled(true);
 	    	confirmButton.setEnabled(true);
     	}
