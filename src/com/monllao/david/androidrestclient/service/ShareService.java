@@ -2,16 +2,24 @@ package com.monllao.david.androidrestclient.service;
 
 import java.io.IOException;
 
+import twitter4j.TwitterException;
+
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources.NotFoundException;
+import android.net.Uri;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.monllao.david.androidrestclient.AndroidRestClientActivity;
+import com.monllao.david.androidrestclient.R;
 import com.monllao.david.androidrestclient.Video;
 import com.monllao.david.androidrestclient.receiver.AddServerVideoReceiver;
 import com.monllao.david.androidrestclient.receiver.BeginShareReceiver;
@@ -48,6 +56,11 @@ public class ShareService extends Service {
 	private EndShareReceiver endShareReceiver;
 	
 	private SharedPreferences prefs;
+	NotificationManager mNotificationManager;
+
+	private static final int NOTIFY_FACEBOOK_END = 1;
+	private static final int NOTIFY_TWITTER_END = 2;
+	
 	
 	/**
 	 * Just to register the receivers
@@ -55,6 +68,10 @@ public class ShareService extends Service {
 	public void onCreate() {
 		
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		// To notify the share end
+		String ns = Context.NOTIFICATION_SERVICE;
+		mNotificationManager = (NotificationManager) getSystemService(ns);
 		
         // Registering receivers
         IntentFilter addvideofilter = new IntentFilter(AndroidRestClientActivity.ACTION_ADDVIDEO);
@@ -206,7 +223,16 @@ public class ShareService extends Service {
         long expires = prefs.getLong("access_expires", 0);
         
 		FacebookShare facebook = new FacebookShare(access_token, expires);
-		facebook.share(getMessage());
+		
+		// If all went ok notify it
+		if (facebook.share(getMessage())) {
+			
+			// TODO: Send the user to the post
+	    	Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com"));
+	    	
+			sendNotification(ShareService.NOTIFY_FACEBOOK_END, notificationIntent, getString(R.string.facebook_ok));
+		}
+		
 		toFacebook = false;
 	}
 	
@@ -223,13 +249,23 @@ public class ShareService extends Service {
 		try {
 			twitter.getToken(twitter_token, twitter_token_secret);
 			twitter.share(getMessage());
+
+			// Send the notification if all went ok
+			// Where should the notification take the user
+	    	Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(twitter.getUserTimelineUrl()));
+	    	
+			sendNotification(ShareService.NOTIFY_TWITTER_END, notificationIntent, getString(R.string.twitter_ok));
+			
 		} catch (NotFoundException e) {
 			Log.e(AndroidRestClientActivity.APP_NAME, "Twitter share error: Not found exception, " + e.getMessage());
 		} catch (IOException e) {
 			Log.e(AndroidRestClientActivity.APP_NAME, "Twitter share error: IO Exception, " + e.getMessage());
+		} catch (TwitterException e) {
+			Log.e(AndroidRestClientActivity.APP_NAME, "Twitter share error: Twitter exception, " + e.getMessage());
 		}
 		
 		toTwitter = false;
+
 	}
 	
 
@@ -239,6 +275,29 @@ public class ShareService extends Service {
      */
     private String getMessage() {
     	return this.video.getName() + " " + this.video.getUrl();
+    }
+    
+    
+    /**
+     * Send a notification
+     * @param type What kind of notification it is
+     * @param uri The pointer to the resource
+     * @param text The notification text
+     */
+    private void sendNotification(int type, Intent notificationIntent, String text) {
+
+    	// Default icon + text + throw now the notification
+    	Notification notification = new Notification(R.drawable.icon, text, System.currentTimeMillis());
+    	
+    	// Attach an intent to the notification
+    	Context context = getApplicationContext();
+    	CharSequence contentTitle = getString(R.string.app_name);
+
+    	PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
+    	notification.setLatestEventInfo(context, contentTitle, text, contentIntent);
+    	
+    	mNotificationManager.notify(type, notification);
     }
     
     /**
@@ -281,4 +340,5 @@ public class ShareService extends Service {
     	unregisterReceiver(twitterTokenReceiver);
     	unregisterReceiver(endShareReceiver);
     }
+    
 }
