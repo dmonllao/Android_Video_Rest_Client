@@ -290,7 +290,7 @@ public class ShareService extends Service {
 
     	// Default icon + text + throw now the notification
     	Notification notification = new Notification(R.drawable.icon, text, System.currentTimeMillis());
-    	notification.defaults = Notification.FLAG_AUTO_CANCEL;
+    	notification.flags = Notification.FLAG_AUTO_CANCEL | Notification.FLAG_ONLY_ALERT_ONCE;
     	
     	// Attach an intent to the notification
     	Context context = getApplicationContext();
