@@ -227,8 +227,9 @@ public class ShareService extends Service {
 		// If all went ok notify it
 		if (facebook.share(getMessage())) {
 			
-			// TODO: Send the user to the post
-	    	Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com"));
+			// Send the user to the post
+			String url = facebook.getUserWallUrl(this);
+	    	Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
 	    	
 			sendNotification(ShareService.NOTIFY_FACEBOOK_END, notificationIntent, getString(R.string.facebook_ok));
 		}
@@ -252,7 +253,8 @@ public class ShareService extends Service {
 
 			// Send the notification if all went ok
 			// Where should the notification take the user
-	    	Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(twitter.getUserTimelineUrl()));
+			String url = twitter.getUserTimelineUrl();
+	    	Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
 	    	
 			sendNotification(ShareService.NOTIFY_TWITTER_END, notificationIntent, getString(R.string.twitter_ok));
 			

@@ -3,6 +3,9 @@ package com.monllao.david.androidrestclient.share;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -55,4 +58,37 @@ public class FacebookShare extends Facebook {
         return true;
 	}
 
+	
+	/**
+	 * Returns the user wall URI
+	 * 
+	 * The URI depends on the facebook app availability
+	 * @param context
+	 * @return
+	 */
+	public String getUserWallUrl(Context context) {
+		
+		// If the user has the facebook app installed let's redirect it to the facebook app
+		if (isFacebookAppInstalled(context)) {
+			return "fb://profile";
+		} else {
+			return "http://www.facebook.com/profile.php?&sk=wall";
+		}
+	}
+	
+	
+	/**
+	 * Checks if the facebook app for android is installed on the device
+	 * @return
+	 */
+	private boolean isFacebookAppInstalled(Context context) {
+		
+		
+		try{
+			ApplicationInfo info = context.getPackageManager().getApplicationInfo("com.facebook.katana", 0);
+		    return true;
+		} catch( PackageManager.NameNotFoundException e ){
+		    return false;
+		}
+	}
 }
