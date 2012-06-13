@@ -145,13 +145,14 @@ public class AndroidRestClientActivity extends Activity {
      * Executed when the activity is closed
      */
     public void onDestroy() {
-    	super.onDestroy();
     	
     	Log.i(AndroidRestClientActivity.APP_NAME, "AndroidRestClientActivity.ondestroy");
     	
     	// Unregistering the broadcast receivers
     	unregisterReceiver(getUserReceiver);
     	unregisterReceiver(addUserReceiver);
+
+    	super.onDestroy();
     }
     
     
