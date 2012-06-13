@@ -7,15 +7,15 @@
     <string name="app_user_set_up">Usuario disponible en el servidor</string>
     <string name="set_video_data">Confirmar</string>
     <string name="set_title">Video title</string>
-    <string name="sharing">Compartiendo video</string>
-    <string name="sharing_result">Video compartido en las redes sociales elegidas</string>
+    <string name="sharing">Compartido! Recibirás una notificación cuando el video esté disponible. Puedes cerrar la aplicación si lo deseas.</string>
+    <string name="sharing_result">Video compartido en las redes sociales seleccionadas</string>
     <string name="empty"></string>
     <string name="no_network_selected">No se ha seleccionado ninguna red</string>
     <string name="facebook_problem">Error de red, el video no se puede compartir en facebook</string>
     <string name="twitter_problem">Error de red, el video no se puede compartir en Twitter</string>
     <string name="twitter_allowme">Autoriza esta aplicación para compartir en Twitter</string>
-    <string name="twitter_ok">Compartido a Twitter</string>
-    <string name="facebook_ok">Compartido a Facebook</string>
+    <string name="twitter_ok">Video compartido en Twitter</string>
+    <string name="facebook_ok">Video compartido en Facebook</string>
     <string name="twitter_loading">Enviando datos a Twitter</string>
     <string name="facebook_loading">Enviando datos a Facebook</string>
 </resources>
