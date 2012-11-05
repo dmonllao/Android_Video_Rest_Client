@@ -2,9 +2,12 @@ package com.monllao.david.androidrestclient.camera;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 import android.content.Context;
 import android.hardware.Camera;
+import android.hardware.Camera.Size;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.util.Log;
@@ -95,14 +98,14 @@ public class CameraVideoPreview extends SurfaceView implements SurfaceHolder.Cal
         mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
 
         // Set the Profile
-        CamcorderProfile profile = CamcorderProfile.get(CamcorderProfile.QUALITY_LOW);
-        CamcorderProfile highProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
+        CamcorderProfile profile = CamcorderProfile.get(AndroidRestClientActivity.CAMERA_ID, CamcorderProfile.QUALITY_LOW);
+        CamcorderProfile highProfile = CamcorderProfile.get(AndroidRestClientActivity.CAMERA_ID, CamcorderProfile.QUALITY_HIGH);
         profile.fileFormat = MediaRecorder.OutputFormat.MPEG_4;
         profile.videoCodec = MediaRecorder.VideoEncoder.H264;
         profile.videoBitRate = this.videoBitRate;
         profile.videoFrameRate = highProfile.videoFrameRate;
-        profile.videoFrameWidth = width;
-        profile.videoFrameHeight = height;
+//        profile.videoFrameWidth = width;
+//        profile.videoFrameHeight = height;
         
         // High audio quality
         profile.audioCodec = highProfile.audioCodec;
@@ -172,7 +175,7 @@ public class CameraVideoPreview extends SurfaceView implements SurfaceHolder.Cal
 		if (blackWhite == true) {
 			cameraParameters.setColorEffect(Camera.Parameters.EFFECT_MONO);
 		}
-		
+				
 		mCamera.setParameters(cameraParameters);
 		
 		try {

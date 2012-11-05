@@ -40,6 +40,7 @@ public class AndroidRestClientActivity extends Activity {
 	public static final int ACTIVITY_SHARE_TWITTER = 4;
 	public static final int ACTIVITY_FEEDBACK = 5;
 	public static int VIDEO_SECS = 10;
+	public static int CAMERA_ID = 0;
 	
 	/**
 	 * Screen blocker
